@@ -1,0 +1,9 @@
+# Clean URL redirects for ReadShift
+/start /start.html 200
+/assist /assist.html 200
+/app /start.html 200
+/get-started /start.html 200
+/demo /start.html 200
+
+# Fallback for any other routes to landing page
+/* /index.html 200

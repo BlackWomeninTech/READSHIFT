@@ -1,0 +1,13 @@
+# ReadShift Common Use Case
+## Project: READSHIFT
+
+A child with dyslexia struggles to read text on their laptop (comics, homework, YouTube description). Frustrated, they grab their phone, activate the “ReadShift” PWA, and say “ReadShift, help”. The mobile camera activates and captures the text. ReadShift's vision + OCR reads it aloud using TTS. 
+
+After reading, AI responds with prompts:
+
+-  “Would you like to spell it together?” ( AI begins letter by letter spelling)
+-  “Do you want to hear that in a sentence?” ( AI responds with a sentence)
+-  “Would you like a definition?” ( AI responds with a definition)
+
+
+The child can continue interacting vocally or by tap, including a conversation

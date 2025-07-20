@@ -1,0 +1,618 @@
+// ReadShift - Dyslexia-Friendly Learning PWA
+class ReadShiftApp {
+    constructor() {
+        this.currentScreen = 'loading';
+        this.userData = {};
+        this.currentTermIndex = 0;
+        this.isRecording = false;
+        this.recognition = null;
+        this.synthesis = window.speechSynthesis;
+        this.camera = null;
+        
+        // Initialize app
+        this.init();
+    }
+
+    async init() {
+        // Load user data
+        this.loadUserData();
+        
+        // Setup service worker
+        this.registerServiceWorker();
+        
+        // Setup speech recognition
+        this.setupSpeechRecognition();
+        
+        // Setup event listeners
+        this.setupEventListeners();
+        
+        // Load learning data
+        await this.loadLearningData();
+        
+        // Show appropriate screen
+        setTimeout(() => {
+            this.hideScreen('loading-screen');
+            if (this.userData.isRegistered) {
+                this.showScreen('home-screen');
+                this.speak(`Welcome back ${this.userData.childName}! Ready to learn something amazing?`);
+                document.getElementById('child-name-display').textContent = this.userData.childName;
+            } else {
+                this.showScreen('registration-screen');
+            }
+        }, 2000);
+    }
+
+    // Service Worker Registration
+    async registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+            try {
+                await navigator.serviceWorker.register('sw.js');
+                console.log('Service Worker registered successfully');
+            } catch (error) {
+                console.log('Service Worker registration failed:', error);
+            }
+        }
+    }
+
+    // Speech Recognition Setup
+    setupSpeechRecognition() {
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            this.recognition = new SpeechRecognition();
+            this.recognition.continuous = true;
+            this.recognition.interimResults = false;
+            this.recognition.lang = 'en-US';
+
+            this.recognition.onresult = (event) => {
+                const command = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
+                this.handleVoiceCommand(command);
+            };
+
+            this.recognition.onerror = (event) => {
+                console.log('Speech recognition error:', event.error);
+            };
+
+            // Start listening
+            setTimeout(() => {
+                try {
+                    this.recognition.start();
+                } catch (error) {
+                    console.log('Speech recognition start error:', error);
+                }
+            }, 3000);
+        }
+    }
+
+    // Voice Command Handler
+    handleVoiceCommand(command) {
+        console.log('Voice command:', command);
+        
+        // Global commands
+        if (command.includes('start') && this.currentScreen === 'home-screen') {
+            this.startLearning();
+        } else if (command.includes('help me') && this.currentScreen === 'camera-screen') {
+            this.analyzeImage();
+        } else if (command.includes('again') && this.currentScreen === 'playback-screen') {
+            this.playCurrentTerm();
+        } else if (command.includes('next') && this.currentScreen === 'playback-screen') {
+            this.nextWord();
+        } else if (command.includes('back')) {
+            this.goBack();
+        } else if (command.includes('continue')) {
+            this.continue();
+        }
+    }
+
+    // Event Listeners Setup
+    setupEventListeners() {
+        // Registration form
+        const registrationForm = document.getElementById('registration-form');
+        if (registrationForm) {
+            registrationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleRegistration();
+            });
+        }
+
+        const demoModeBtn = document.getElementById('demo-mode-btn');
+        if (demoModeBtn) {
+            demoModeBtn.addEventListener('click', () => {
+                this.startDemoMode();
+            });
+        }
+
+        // Home screen
+        const startBtn = document.getElementById('start-btn');
+        if (startBtn) {
+            startBtn.addEventListener('click', () => {
+                this.animateButtonPress('start-btn');
+                this.startLearning();
+            });
+        }
+
+        const settingsAccess = document.getElementById('settings-access');
+        if (settingsAccess) {
+            settingsAccess.addEventListener('click', () => {
+                this.showSettings();
+            });
+        }
+
+        // Camera screen
+        const cameraHelpBtn = document.getElementById('camera-help-btn');
+        if (cameraHelpBtn) {
+            cameraHelpBtn.addEventListener('click', () => {
+                this.animateButtonPress('camera-help-btn');
+                this.analyzeImage();
+            });
+        }
+
+        const cameraBackBtn = document.getElementById('camera-back-btn');
+        if (cameraBackBtn) {
+            cameraBackBtn.addEventListener('click', () => {
+                this.animateButtonPress('camera-back-btn');
+                this.goBack();
+            });
+        }
+
+        // Playback screen
+        const playAgainBtn = document.getElementById('play-again-btn');
+        if (playAgainBtn) {
+            playAgainBtn.addEventListener('click', () => {
+                this.animateButtonPress('play-again-btn');
+                this.playCurrentTerm();
+            });
+        }
+
+        const nextWordBtn = document.getElementById('next-word-btn');
+        if (nextWordBtn) {
+            nextWordBtn.addEventListener('click', () => {
+                this.animateButtonPress('next-word-btn');
+                this.nextWord();
+            });
+        }
+
+        const playbackBackBtn = document.getElementById('playback-back-btn');
+        if (playbackBackBtn) {
+            playbackBackBtn.addEventListener('click', () => {
+                this.animateButtonPress('playback-back-btn');
+                this.goBack();
+            });
+        }
+
+        // Interaction screen
+        const recordBtn = document.getElementById('record-btn');
+        if (recordBtn) {
+            recordBtn.addEventListener('mousedown', () => {
+                this.startRecording();
+            });
+
+            recordBtn.addEventListener('mouseup', () => {
+                this.stopRecording();
+            });
+
+            recordBtn.addEventListener('touchstart', () => {
+                this.startRecording();
+            });
+
+            recordBtn.addEventListener('touchend', () => {
+                this.stopRecording();
+            });
+        }
+
+        const playbackRecordingBtn = document.getElementById('playback-recording-btn');
+        if (playbackRecordingBtn) {
+            playbackRecordingBtn.addEventListener('click', () => {
+                this.playRecording();
+            });
+        }
+
+        const interactionContinueBtn = document.getElementById('interaction-continue-btn');
+        if (interactionContinueBtn) {
+            interactionContinueBtn.addEventListener('click', () => {
+                this.animateButtonPress('interaction-continue-btn');
+                this.showCelebration();
+            });
+        }
+
+        // Celebration screen
+        const celebrationContinueBtn = document.getElementById('celebration-continue-btn');
+        if (celebrationContinueBtn) {
+            celebrationContinueBtn.addEventListener('click', () => {
+                this.animateButtonPress('celebration-continue-btn');
+                this.continue();
+            });
+        }
+
+        const celebrationHomeBtn = document.getElementById('celebration-home-btn');
+        if (celebrationHomeBtn) {
+            celebrationHomeBtn.addEventListener('click', () => {
+                this.animateButtonPress('celebration-home-btn');
+                this.goHome();
+            });
+        }
+
+        // Settings screen
+        const settingsBackBtn = document.getElementById('settings-back-btn');
+        if (settingsBackBtn) {
+            settingsBackBtn.addEventListener('click', () => {
+                this.goBack();
+            });
+        }
+
+        const volumeSlider = document.getElementById('volume-slider');
+        if (volumeSlider) {
+            volumeSlider.addEventListener('input', (e) => {
+                this.updateVolume(e.target.value / 100);
+            });
+        }
+
+        const exportProgressBtn = document.getElementById('export-progress-btn');
+        if (exportProgressBtn) {
+            exportProgressBtn.addEventListener('click', () => {
+                this.exportProgress();
+            });
+        }
+
+        const resetAppBtn = document.getElementById('reset-app-btn');
+        if (resetAppBtn) {
+            resetAppBtn.addEventListener('click', () => {
+                this.resetApp();
+            });
+        }
+    }
+
+    // Animation helpers
+    animateButtonPress(buttonId) {
+        const button = document.getElementById(buttonId);
+        button.classList.add('button-press');
+        setTimeout(() => button.classList.remove('button-press'), 200);
+    }
+
+    // Screen Management
+    showScreen(screenId) {
+        // Hide all screens
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.add('hidden');
+        });
+        
+        // Show target screen
+        const targetScreen = document.getElementById(screenId);
+        targetScreen.classList.remove('hidden');
+        targetScreen.classList.add('fade-in');
+        
+        this.currentScreen = screenId;
+    }
+
+    hideScreen(screenId) {
+        document.getElementById(screenId).classList.add('hidden');
+    }
+
+    // Text-to-Speech
+    speak(text, rate = 0.8) {
+        if (this.synthesis) {
+            this.synthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = rate;
+            utterance.pitch = 1.1;
+            utterance.volume = this.userData.volume || 0.8;
+            
+            // Use child-friendly voice if available
+            const voices = this.synthesis.getVoices();
+            const childVoice = voices.find(voice => 
+                voice.name.includes('female') || voice.name.includes('child')
+            );
+            if (childVoice) {
+                utterance.voice = childVoice;
+            }
+            
+            this.synthesis.speak(utterance);
+        }
+    }
+
+    // User Data Management
+    loadUserData() {
+        const saved = localStorage.getItem('readshift-user');
+        if (saved) {
+            this.userData = JSON.parse(saved);
+        }
+    }
+
+    saveUserData() {
+        localStorage.setItem('readshift-user', JSON.stringify(this.userData));
+    }
+
+    // Registration
+    handleRegistration() {
+        const childName = document.getElementById('child-name').value;
+        const childAge = document.getElementById('child-age').value;
+        const coppaAgreed = document.getElementById('coppa-agreement').checked;
+
+        if (childName && childAge && coppaAgreed) {
+            this.userData = {
+                childName,
+                childAge: parseInt(childAge),
+                isRegistered: true,
+                registrationDate: new Date().toISOString(),
+                progress: {},
+                volume: 0.8
+            };
+            
+            this.saveUserData();
+            document.getElementById('child-name-display').textContent = childName;
+            
+            this.speak(`Welcome ${childName}! Let's start your learning adventure!`);
+            
+            setTimeout(() => {
+                this.showScreen('home-screen');
+            }, 1000);
+        }
+    }
+
+    startDemoMode() {
+        this.userData = {
+            childName: 'Friend',
+            childAge: 6,
+            isRegistered: false,
+            isDemo: true,
+            volume: 0.8
+        };
+        
+        document.getElementById('child-name-display').textContent = 'Friend';
+        this.speak('Welcome to demo mode! Let\'s explore together!');
+        
+        setTimeout(() => {
+            this.showScreen('home-screen');
+        }, 1000);
+    }
+
+    // Learning Data
+    async loadLearningData() {
+        // Sample learning data - in production, this would be loaded from a JSON file
+        this.learningData = [
+            {
+                term: "gravity",
+                definition: "Gravity is the force that pulls things down to the ground. When you drop a ball, gravity makes it fall down instead of floating away!",
+                visual: "🌍",
+                difficulty: 1
+            },
+            {
+                term: "rainbow",
+                definition: "A rainbow is a beautiful arc of colors that appears in the sky after it rains. It has red, orange, yellow, green, blue, indigo, and violet colors!",
+                visual: "🌈",
+                difficulty: 1
+            },
+            {
+                term: "butterfly",
+                definition: "A butterfly is a beautiful insect with colorful wings. It starts as a caterpillar, then transforms into a butterfly in an amazing process!",
+                visual: "🦋",
+                difficulty: 1
+            },
+            {
+                term: "ocean",
+                definition: "The ocean is a huge body of salt water that covers most of our planet. It's home to whales, dolphins, fish, and many other sea creatures!",
+                visual: "🌊",
+                difficulty: 2
+            },
+            {
+                term: "telescope",
+                definition: "A telescope is a special tool that makes far away things look bigger and closer. Astronomers use telescopes to study stars and planets!",
+                visual: "🔭",
+                difficulty: 2
+            }
+        ];
+    }
+
+    // Learning Flow
+    startLearning() {
+        this.speak("Great! Let's find something interesting to learn about. Point your camera at any word and I'll help you!");
+        this.setupCamera();
+        setTimeout(() => {
+            this.showScreen('camera-screen');
+        }, 1000);
+    }
+
+    async setupCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ 
+                video: { 
+                    facingMode: 'environment',
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 }
+                } 
+            });
+            
+            const video = document.getElementById('camera-video');
+            video.srcObject = stream;
+            this.camera = stream;
+            
+            video.addEventListener('loadedmetadata', () => {
+                video.play();
+            });
+        } catch (error) {
+            console.error('Camera access error:', error);
+            this.speak("I can't access the camera right now. Let's try a different way to learn!");
+            // Fallback to direct word selection
+            this.showRandomTerm();
+        }
+    }
+
+    analyzeImage() {
+        this.speak("Let me look at that for you!");
+        
+        // Simulate AI analysis (in production, this would use actual AI)
+        setTimeout(() => {
+            const randomTerm = this.learningData[Math.floor(Math.random() * this.learningData.length)];
+            this.currentTerm = randomTerm;
+            this.showTerm();
+        }, 2000);
+    }
+
+    showRandomTerm() {
+        const randomTerm = this.learningData[Math.floor(Math.random() * this.learningData.length)];
+        this.currentTerm = randomTerm;
+        this.showTerm();
+    }
+
+    showTerm() {
+        if (this.camera) {
+            this.camera.getTracks().forEach(track => track.stop());
+        }
+        
+        document.getElementById('current-term').textContent = this.currentTerm.term;
+        document.getElementById('term-visual').textContent = this.currentTerm.visual;
+        
+        this.showScreen('playback-screen');
+        
+        setTimeout(() => {
+            this.playCurrentTerm();
+        }, 500);
+    }
+
+    playCurrentTerm() {
+        const fullText = `The word is ${this.currentTerm.term}. ${this.currentTerm.definition}`;
+        this.speak(fullText);
+        
+        // Update progress
+        if (this.userData.progress) {
+            this.userData.progress[this.currentTerm.term] = {
+                learned: true,
+                date: new Date().toISOString()
+            };
+            this.saveUserData();
+        }
+    }
+
+    nextWord() {
+        this.speak("Let's learn something new!");
+        setTimeout(() => {
+            this.showScreen('interaction-screen');
+            this.speak(`Can you say the word ${this.currentTerm.term} with me?`);
+        }, 1000);
+    }
+
+    // Recording functionality
+    startRecording() {
+        this.isRecording = true;
+        document.getElementById('recording-status').classList.remove('hidden');
+        document.getElementById('record-btn').textContent = '🔴 RECORDING';
+        
+        // Simulate recording (in production, use Web Audio API)
+        this.speak("Great job trying to say it!");
+    }
+
+    stopRecording() {
+        this.isRecording = false;
+        document.getElementById('recording-status').classList.add('hidden');
+        document.getElementById('record-btn').innerHTML = '<span class="mr-3">🎙️</span>RECORD';
+        document.getElementById('playback-recording-btn').classList.remove('hidden');
+    }
+
+    playRecording() {
+        this.speak("That was wonderful! You're doing great!");
+    }
+
+    // Celebration
+    showCelebration() {
+        this.showScreen('celebration-screen');
+        this.speak("Awesome! You're getting smarter every day! Give yourself a big high five!");
+        
+        // Play celebration sound effect (simulate)
+        setTimeout(() => {
+            this.playSuccessSound();
+        }, 1000);
+    }
+
+    playSuccessSound() {
+        // Simulate success sound with speech
+        this.speak("Hooray! Fantastic job!");
+    }
+
+    // Navigation
+    goBack() {
+        switch (this.currentScreen) {
+            case 'camera-screen':
+                this.goHome();
+                break;
+            case 'playback-screen':
+                this.startLearning();
+                break;
+            case 'interaction-screen':
+                this.showScreen('playback-screen');
+                break;
+            case 'celebration-screen':
+                this.goHome();
+                break;
+            case 'settings-screen':
+                this.goHome();
+                break;
+            default:
+                this.goHome();
+        }
+    }
+
+    continue() {
+        this.showRandomTerm();
+    }
+
+    goHome() {
+        if (this.camera) {
+            this.camera.getTracks().forEach(track => track.stop());
+        }
+        this.showScreen('home-screen');
+        this.speak(`Welcome back ${this.userData.childName || 'friend'}! What would you like to learn next?`);
+    }
+
+    // Settings
+    showSettings() {
+        // Simple admin access (in production, use proper authentication)
+        const adminCode = prompt("Enter parent access code:");
+        if (adminCode === "parent123") {
+            this.showScreen('settings-screen');
+        }
+    }
+
+    updateVolume(volume) {
+        this.userData.volume = volume;
+        this.saveUserData();
+    }
+
+    exportProgress() {
+        const progressData = {
+            child: this.userData.childName,
+            age: this.userData.childAge,
+            progress: this.userData.progress,
+            exportDate: new Date().toISOString()
+        };
+        
+        const dataStr = JSON.stringify(progressData, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+        
+        const exportFileDefaultName = `readshift-progress-${this.userData.childName}.json`;
+        
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+    }
+
+    resetApp() {
+        if (confirm("Are you sure you want to reset all app data? This cannot be undone.")) {
+            localStorage.clear();
+            location.reload();
+        }
+    }
+}
+
+// Initialize app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    window.readShiftApp = new ReadShiftApp();
+});
+
+// Handle offline/online events
+window.addEventListener('online', () => {
+    console.log('App is online');
+});
+
+window.addEventListener('offline', () => {
+    console.log('App is offline');
+});

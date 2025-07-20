@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - Dyslexia-Friendly Learning for Kids</title>
+    
+    <meta name="description" content="ReadShift helps children with dyslexia learn through AI-powered visual recognition and engaging audio. Safe, fun, and effective learning for ages 4-12.">
+    <meta name="theme-color" content="#4F46E5">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        danger: '#EF4444',
+                        success: '#22C55E'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .hero-float {
+            animation: heroFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .pulse-gentle {
+            animation: pulseGentle 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGentle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="text-3xl">🎯</div>
+                <span class="text-2xl font-bold gradient-text">ReadShift</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#features" class="text-gray-600 hover:text-primary transition-colors">Features</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-primary transition-colors">How It Works</a>
+                <a href="#support" class="text-gray-600 hover:text-primary transition-colors">Support</a>
+                <button onclick="startApp()" class="bg-primary hover:bg-indigo-600 text-white px-6 py-2 rounded-full font-semibold transition-colors">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-gradient-to-br from-purple-400 via-pink-300 to-blue-400 flex items-center justify-center pt-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="hero-float mb-8">
+                <div class="text-8xl mb-4">🧙🏽‍♂️✨</div>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">
+                Learning Made
+                <span class="block gradient-text bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">
+                    Magical
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-white mb-8 max-w-3xl mx-auto drop-shadow-md">
+                ReadShift helps children with dyslexia discover the joy of learning through 
+                <strong>AI-powered visual recognition</strong> and <strong>engaging audio experiences</strong>
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                <button onclick="startApp()" class="bg-secondary hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-2xl transition-all duration-200 transform hover:scale-105">
+                    <span class="mr-2">🚀</span>
+                    Start Learning Adventure
+                </button>
+                <button onclick="window.location.href='/start'" class="bg-white/20 hover:bg-white/30 text-white px-8 py-4 rounded-full text-xl font-bold backdrop-blur-sm transition-all duration-200">
+                    <span class="mr-2">▶️</span>
+                    Try Demo
+                </button>
+            </div>
+            
+            <div class="text-white text-lg">
+                <p class="mb-2">✨ Designed specifically for children with dyslexia</p>
+                <p>🎯 Ages 4-12 • COPPA Compliant • Works Offline</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Why Kids Love ReadShift
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Every feature is designed with dyslexic learners in mind, making reading fun and accessible
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Visual Learning -->
+                <div class="feature-card bg-gradient-to-br from-blue-50 to-indigo-100 p-8 rounded-3xl">
+                    <div class="text-5xl mb-4">📸</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Visual Learning</h3>
+                    <p class="text-gray-600 mb-4">
+                        Point the camera at any word and instantly learn about it! No typing or spelling required.
+                    </p>
+                    <div class="text-sm text-indigo-600 font-semibold">Perfect for visual learners</div>
+                </div>
+                
+                <!-- Text-to-Speech -->
+                <div class="feature-card bg-gradient-to-br from-green-50 to-emerald-100 p-8 rounded-3xl">
+                    <div class="text-5xl mb-4">🗣️</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Clear Audio</h3>
+                    <p class="text-gray-600 mb-4">
+                        Child-friendly voice explanations that are easy to understand and follow along with.
+                    </p>
+                    <div class="text-sm text-emerald-600 font-semibold">Reduces reading pressure</div>
+                </div>
+                
+                <!-- Interactive Practice -->
+                <div class="feature-card bg-gradient-to-br from-purple-50 to-violet-100 p-8 rounded-3xl">
+                    <div class="text-5xl mb-4">🎤</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Voice Practice</h3>
+                    <p class="text-gray-600 mb-4">
+                        Record and playback pronunciation practice in a safe, encouraging environment.
+                    </p>
+                    <div class="text-sm text-violet-600 font-semibold">Builds confidence</div>
+                </div>
+                
+                <!-- Progress Tracking -->
+                <div class="feature-card bg-gradient-to-br from-yellow-50 to-amber-100 p-8 rounded-3xl">
+                    <div class="text-5xl mb-4">📊</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Progress Tracking</h3>
+                    <p class="text-gray-600 mb-4">
+                        Parents can monitor learning achievements and export detailed progress reports.
+                    </p>
+                    <div class="text-sm text-amber-600 font-semibold">Data-driven insights</div>
+                </div>
+                
+                <!-- Offline Learning -->
+                <div class="feature-card bg-gradient-to-br from-pink-50 to-rose-100 p-8 rounded-3xl">
+                    <div class="text-5xl mb-4">📱</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Works Offline</h3>
+                    <p class="text-gray-600 mb-4">
+                        Learn anywhere, anytime! No internet connection required after initial setup.
+                    </p>
+                    <div class="text-sm text-rose-600 font-semibold">Always accessible</div>
+                </div>
+                
+                <!-- Safe & Secure -->
+                <div class="feature-card bg-gradient-to-br from-teal-50 to-cyan-100 p-8 rounded-3xl">
+                    <div class="text-5xl mb-4">🛡️</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">COPPA Compliant</h3>
+                    <p class="text-gray-600 mb-4">
+                        Designed with children's privacy and safety as the top priority. Parent-controlled access.
+                    </p>
+                    <div class="text-sm text-cyan-600 font-semibold">Privacy protected</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-20 bg-gradient-to-br from-indigo-50 to-purple-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Simple as 1-2-3
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Getting started is easy and fun!
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <span class="text-3xl font-bold text-primary">1</span>
+                    </div>
+                    <div class="text-4xl mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Parent Setup</h3>
+                    <p class="text-gray-600">
+                        Quick registration with child's name and age. COPPA-compliant and secure.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <span class="text-3xl font-bold text-secondary">2</span>
+                    </div>
+                    <div class="text-4xl mb-4">📸</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Point & Learn</h3>
+                    <p class="text-gray-600">
+                        Child points camera at any word and ReadShift explains it in kid-friendly language.
+                    </p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="bg-white rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <span class="text-3xl font-bold text-accent">3</span>
+                    </div>
+                    <div class="text-4xl mb-4">🎉</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Celebrate Success</h3>
+                    <p class="text-gray-600">
+                        Practice pronunciation, track progress, and celebrate every learning milestone!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video Section -->
+    <section id="demo-video" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-8">
+                See ReadShift in Action
+            </h2>
+            
+            <div class="bg-gradient-to-br from-purple-400 to-blue-500 rounded-3xl p-8 shadow-2xl">
+                <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-12">
+                    <div class="text-8xl mb-6 pulse-gentle">🎬</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">Interactive Demo Coming Soon!</h3>
+                    <p class="text-white text-lg mb-8">
+                        Watch how children with dyslexia discover the joy of learning with ReadShift
+                    </p>
+                    <button onclick="window.location.href='/start'" class="bg-white text-primary px-8 py-4 rounded-full text-xl font-bold hover:bg-gray-100 transition-colors">
+                        Try It Now Instead!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section id="support" class="py-20 bg-gradient-to-br from-emerald-50 to-teal-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    We're Here to Help
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Supporting families every step of the way
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-lg text-center">
+                    <div class="text-4xl mb-4">🛠️</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">One-Time Setup</h3>
+                    <p class="text-gray-600 mb-4">
+                        Free installation support included with every download. We'll help you get started!
+                    </p>
+                    <div class="text-emerald-600 font-semibold">Included Free</div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl shadow-lg text-center">
+                    <div class="text-4xl mb-4">👨‍👩‍👧‍👦</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Parent Resources</h3>
+                    <p class="text-gray-600 mb-4">
+                        Access to guides, tips, and strategies for supporting children with dyslexia.
+                    </p>
+                    <div class="text-emerald-600 font-semibold">Always Available</div>
+                </div>
+                
+                <div class="bg-white p-8 rounded-3xl shadow-lg text-center">
+                    <div class="text-4xl mb-4">📞</div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-3">Extended Support</h3>
+                    <p class="text-gray-600 mb-4">
+                        Premium support packages available for ongoing assistance and customization.
+                    </p>
+                    <div class="text-emerald-600 font-semibold">Optional Plans</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-600 to-indigo-700">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="text-6xl mb-6 hero-float">🌟</div>
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                Ready to Transform Learning?
+            </h2>
+            <p class="text-xl text-white mb-8 max-w-2xl mx-auto">
+                Join thousands of families who have discovered the joy of dyslexia-friendly learning with ReadShift
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="window.location.href='/start'" class="bg-secondary hover:bg-emerald-600 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-2xl transition-all duration-200 transform hover:scale-105">
+                    <span class="mr-3">🚀</span>
+                    Start Free Today
+                </button>
+                <div class="text-white text-lg">
+                    <p>✨ No credit card required</p>
+                    <p>🎯 Works on any device</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                    <div class="text-3xl">🎯</div>
+                    <span class="text-2xl font-bold">ReadShift</span>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-400 mb-2">Making learning accessible for every child</p>
+                    <p class="text-sm text-gray-500">© 2025 ReadShift. COPPA Compliant & Privacy Protected.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function startApp() {
+            // Redirect to the main app
+            window.location.href = '/start';
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-white');
+                nav.classList.remove('bg-white/90');
+            } else {
+                nav.classList.add('bg-white/90');
+                nav.classList.remove('bg-white');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "gravity",
+    "term": "gravity",
+    "definition": "Gravity is the invisible force that pulls things down toward the Earth. When you drop a toy, gravity makes it fall to the ground instead of floating in the air! Without gravity, everything would float around like astronauts in space.",
+    "visual": "🌍",
+    "category": "science",
+    "difficulty": 1,
+    "ageGroup": "4-8",
+    "examples": [
+      "When you jump, gravity brings you back down",
+      "Rain falls because of gravity",
+      "Apples fall from trees because of gravity"
+    ]
+  },
+  {
+    "id": "rainbow",
+    "term": "rainbow",
+    "definition": "A rainbow is nature's most beautiful light show! It appears when sunlight shines through tiny water drops in the air after it rains. A rainbow has seven colors in order: red, orange, yellow, green, blue, indigo, and violet. Some people remember this with the name Roy G. Biv!",
+    "visual": "🌈",
+    "category": "nature",
+    "difficulty": 1,
+    "ageGroup": "4-10",
+    "examples": [
+      "Look for rainbows after rain when the sun comes out",
+      "You can make mini rainbows with a garden hose on a sunny day",
+      "Rainbows are actually full circles, but we usually only see half"
+    ]
+  },
+  {
+    "id": "butterfly",
+    "term": "butterfly",
+    "definition": "A butterfly is one of nature's most amazing transformations! It starts as a tiny egg, becomes a hungry caterpillar, then wraps itself in a cocoon and emerges as a beautiful butterfly with colorful wings. Butterflies taste with their feet and smell with their antennae!",
+    "visual": "🦋",
+    "category": "animals",
+    "difficulty": 1,
+    "ageGroup": "4-12",
+    "examples": [
+      "Butterflies help flowers by carrying pollen",
+      "Monarch butterflies travel thousands of miles",
+      "A butterfly's wings are actually transparent, but tiny scales make them look colorful"
+    ]
+  },
+  {
+    "id": "ocean",
+    "term": "ocean",
+    "definition": "The ocean is like Earth's giant bathtub, filled with salt water that covers most of our planet! It's home to incredible creatures like whales as big as school buses, tiny seahorses, colorful fish, and mysterious deep-sea animals that glow in the dark. The ocean also helps control Earth's weather!",
+    "visual": "🌊",
+    "category": "nature",
+    "difficulty": 2,
+    "ageGroup": "6-12",
+    "examples": [
+      "The ocean is so deep that we've explored less of it than we have of space",
+      "Ocean waves are made by wind blowing across the water",
+      "The ocean produces most of the oxygen we breathe"
+    ]
+  },
+  {
+    "id": "telescope",
+    "term": "telescope",
+    "definition": "A telescope is like a super-powered eye that makes faraway things look much bigger and closer! Astronomers use telescopes to study stars, planets, and galaxies that are millions of miles away. The biggest telescopes can see light from stars that traveled for billions of years to reach us!",
+    "visual": "🔭",
+    "category": "science",
+    "difficulty": 2,
+    "ageGroup": "8-12",
+    "examples": [
+      "Galileo used the first telescope to discover Jupiter's moons",
+      "The Hubble Space Telescope orbits Earth and takes pictures of space",
+      "You can see Saturn's rings with a small telescope"
+    ]
+  },
+  {
+    "id": "photosynthesis",
+    "term": "photosynthesis",
+    "definition": "Photosynthesis is how plants make their own food using sunlight! Plants are like little factories that take in sunlight, water, and air, then mix them together to create sugar for energy. As a bonus, they release oxygen that we need to breathe. Plants are basically feeding themselves while helping us breathe!",
+    "visual": "🌱",
+    "category": "science",
+    "difficulty": 3,
+    "ageGroup": "8-12",
+    "examples": [
+      "The green color in leaves comes from chlorophyll, which captures sunlight",
+      "Without photosynthesis, there would be no oxygen for animals to breathe",
+      "Trees and plants are constantly making oxygen during the day"
+    ]
+  },
+  {
+    "id": "dinosaur",
+    "term": "dinosaur",
+    "definition": "Dinosaurs were amazing creatures that lived on Earth millions of years ago, long before humans existed! They came in all sizes - some were as small as chickens, while others were longer than school buses. Some ate plants, others ate meat, and some could even fly or swim!",
+    "visual": "🦕",
+    "category": "history",
+    "difficulty": 2,
+    "ageGroup": "4-12",
+    "examples": [
+      "T-Rex had teeth as long as bananas",
+      "Some dinosaurs had feathers like birds",
+      "Birds are actually living dinosaurs!"
+    ]
+  },
+  {
+    "id": "volcano",
+    "term": "volcano",
+    "definition": "A volcano is like Earth's way of releasing pressure! Deep underground, rock gets so hot it melts into liquid called magma. When pressure builds up, the magma erupts through openings in the Earth's surface, creating spectacular fireworks of lava, ash, and gas. Some volcanoes are sleeping, while others are very active!",
+    "visual": "🌋",
+    "category": "science",
+    "difficulty": 2,
+    "ageGroup": "6-12",
+    "examples": [
+      "Hawaii was formed by underwater volcanoes",
+      "Volcanic ash can help make soil very fertile for growing plants",
+      "The Ring of Fire around the Pacific Ocean has many active volcanoes"
+    ]
+  },
+  {
+    "id": "ecosystem",
+    "term": "ecosystem",
+    "definition": "An ecosystem is like nature's neighborhood where all the plants, animals, and environment work together as a team! Every creature has a special job - bees pollinate flowers, worms help soil stay healthy, and predators keep animal populations balanced. When everything works together, the whole ecosystem stays healthy and strong!",
+    "visual": "🌿",
+    "category": "science",
+    "difficulty": 3,
+    "ageGroup": "8-12",
+    "examples": [
+      "A forest ecosystem includes trees, animals, insects, soil, and water",
+      "Coral reefs are underwater ecosystems full of colorful fish",
+      "Even your backyard is a small ecosystem!"
+    ]
+  },
+  {
+    "id": "friendship",
+    "term": "friendship",
+    "definition": "Friendship is one of life's greatest treasures! A friend is someone who likes you for who you are, shares your joys and helps you through tough times. Good friends are kind, honest, loyal, and fun to be around. Friendship is about caring for each other and being there when someone needs you!",
+    "visual": "👫",
+    "category": "social",
+    "difficulty": 1,
+    "ageGroup": "4-12",
+    "examples": [
+      "Friends listen when you need to talk",
+      "Friends celebrate your successes with you",
+      "True friends accept you just as you are"
+    ]
+  }
+]

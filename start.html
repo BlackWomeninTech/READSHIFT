@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - Start Learning</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="ReadShift - A dyslexia-friendly learning app for children">
+    <meta name="theme-color" content="#4F46E5">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    
+    <!-- Apple PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ReadShift">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        danger: '#EF4444',
+                        success: '#22C55E'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .mascot-bounce {
+            animation: mascotBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes mascotBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .celebration-pulse {
+            animation: celebrationPulse 0.6s ease-in-out;
+        }
+        
+        @keyframes celebrationPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .button-press {
+            animation: buttonPress 0.2s ease-in-out;
+        }
+        
+        @keyframes buttonPress {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        
+        .speaking-animation {
+            animation: speaking 1s ease-in-out infinite;
+        }
+        
+        @keyframes speaking {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-pink-300 to-blue-400 min-h-screen overflow-hidden">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="text-8xl mb-4 mascot-bounce">🎯</div>
+            <div class="text-white text-2xl font-bold">ReadShift</div>
+            <div class="text-white text-lg mt-2">Loading your adventure...</div>
+            <div class="mt-4">
+                <a href="/" class="text-white/80 text-sm hover:text-white transition-colors">← Back to readshift.app</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Screen -->
+    <div id="registration-screen" class="screen hidden fixed inset-0 bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl">
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4">👨🏽‍👩🏽‍👧🏾‍👦🏿</div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Parent Registration</h2>
+                <p class="text-gray-600">Quick setup for your child's learning journey</p>
+                <div class="mt-4">
+                    <a href="/" class="text-gray-500 text-sm hover:text-gray-700 transition-colors">← Back to readshift.app</a>
+                </div>
+            </div>
+            
+            <form id="registration-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Child's Name</label>
+                    <input type="text" id="child-name" class="w-full p-3 border-2 border-gray-300 rounded-xl focus:border-primary focus:outline-none" placeholder="Enter child's first name" required>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                    <select id="child-age" class="w-full p-3 border-2 border-gray-300 rounded-xl focus:border-primary focus:outline-none" required>
+                        <option value="">Select age</option>
+                        <option value="4">4 years old</option>
+                        <option value="5">5 years old</option>
+                        <option value="6">6 years old</option>
+                        <option value="7">7 years old</option>
+                        <option value="8">8 years old</option>
+                        <option value="9">9 years old</option>
+                        <option value="10">10 years old</option>
+                        <option value="11">11 years old</option>
+                        <option value="12">12 years old</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-start">
+                    <input type="checkbox" id="coppa-agreement" class="mt-1 mr-3" required>
+                    <label for="coppa-agreement" class="text-sm text-gray-700">
+                        I agree to the COPPA terms and conditions for children's privacy protection
+                    </label>
+                </div>
+                
+                <button type="submit" class="w-full bg-primary text-white p-4 rounded-xl text-lg font-bold hover:bg-indigo-600 transition-colors">
+                    Start Learning Adventure! 🚀
+                </button>
+            </form>
+            
+            <button id="demo-mode-btn" class="w-full mt-4 bg-accent text-white p-3 rounded-xl text-lg font-bold hover:bg-yellow-500 transition-colors">
+                Try Demo Mode
+            </button>
+        </div>
+    </div>
+
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen hidden flex flex-col items-center justify-center min-h-screen p-4">
+        <div class="text-center mb-8">
+            <div class="text-9xl mb-4 mascot-bounce">🧙🏽‍♂️</div>
+            <h1 class="text-4xl font-bold text-white mb-2 drop-shadow-lg">Hello <span id="child-name-display">there</span>!</h1>
+            <p class="text-xl text-white drop-shadow-md">Ready for a magical learning adventure?</p>
+        </div>
+        
+        <button id="start-btn" class="bg-secondary hover:bg-emerald-600 text-white px-12 py-6 rounded-full text-3xl font-bold shadow-2xl transition-all duration-200 transform hover:scale-105 mb-6">
+            <span class="mr-3">▶️</span>
+            START
+        </button>
+        
+        <div class="text-center text-white text-lg mb-8">
+            <p>🎤 Say "Start" or tap the button!</p>
+        </div>
+        
+        <button id="settings-access" class="text-white text-sm opacity-50 hover:opacity-100 transition-opacity">
+            👤 Parent Settings
+        </button>
+    </div>
+
+    <!-- Settings Screen (Parent Only) -->
+    <div id="settings-screen" class="screen hidden min-h-screen bg-gray-100 p-6">
+        <div class="max-w-md mx-auto bg-white rounded-2xl shadow-xl p-6">
+            <div class="text-center mb-6">
+                <div class="text-4xl mb-2">⚙️</div>
+                <h2 class="text-2xl font-bold text-gray-800">Parent Settings</h2>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Volume Level</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="80" class="w-full">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Learning Mode</label>
+                    <select id="learning-mode" class="w-full p-3 border border-gray-300 rounded-lg">
+                        <option value="guided">Guided Learning</option>
+                        <option value="free">Free Exploration</option>
+                        <option value="challenge">Challenge Mode</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="animations-toggle" checked class="mr-2">
+                        <span class="text-gray-700">Enable Animations</span>
+                    </label>
+                </div>
+                
+                <div>
+                    <label class="flex items-center">
+                        <input type="checkbox" id="voice-commands-toggle" checked class="mr-2">
+                        <span class="text-gray-700">Voice Commands</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="mt-8 space-y-3">
+                <button id="export-progress-btn" class="w-full bg-secondary text-white p-3 rounded-lg font-bold">
+                    📊 Export Progress Report
+                </button>
+                
+                <button id="reset-app-btn" class="w-full bg-danger text-white p-3 rounded-lg font-bold">
+                    🔄 Reset App Data
+                </button>
+                
+                <button id="settings-back-btn" class="w-full bg-gray-500 text-white p-3 rounded-lg font-bold">
+                    ⬅️ Back to App
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
