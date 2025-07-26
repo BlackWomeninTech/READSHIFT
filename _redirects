@@ -4,6 +4,8 @@
 /app /start.html 200
 /get-started /start.html 200
 /demo /start.html 200
+/install /installation.html 200
+
 
 # Fallback for any other routes to landing page
 /* /index.html 200

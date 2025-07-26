@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<!-- ReadShift Installation Code  -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - Installation Page</title>
+    <!-- Tailwind CSS CDN for utility classes
+    
+    -->
+    {{/*  <script src="https://cdn.tailwindcss.com"></script>  */}}
+    <!-- Google Fonts for 'Dancing Script' (as a Curlz MT alternative) and 'Inter' (default) -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font family for 'Curlz MT' alternative */
+        .font-curlz-mt-alt {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Custom bullet points for lists */
+        .list-custom-bullet li {
+            position: relative;
+            padding-left: 1.5rem; /* Space for the bullet */
+        }
+        .list-custom-bullet li::before {
+            content: '•'; /* Custom bullet character */
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.5rem; /* Size of the bullet */
+            line-height: 1.5rem; /* Align with text */
+            color: black; /* Color of the bullet */
+        }
+    </style>
+</head>
+<body class="bg-white flex justify-center items-start min-h-screen py-8 px-4 font-inter">
+    <div class="container max-w-2xl w-full mx-auto bg-white rounded-xl shadow-lg text-black overflow-hidden pb-8">
+
+        <!-- Header Section: Logo, Welcome, To, Tagline -->
+        <div class="header-section pt-8 px-8">
+            <!-- Top Left Logo and ReadShift Text -->
+            <div class="logo-area flex items-center justify-start mb-6">
+                <!-- Placeholder for the logo image. Replace 'https://placehold.co/60x60/ff69b4/ffffff?text=Logo' with your actual logo image URL. -->
+                <img src="https://placehold.co/60x60/ff69b4/ffffff?text=Logo" alt="ReadShift Logo" class="w-16 h-16 rounded-full mr-4">
+                <span class="font-curlz-mt-alt text-3xl font-bold text-black">ReadShift</span>
+            </div>
+
+            <!-- Welcome To and Tagline (Centered) -->
+            <div class="text-center">
+                <h1 class="font-curlz-mt-alt text-6xl text-black mt-4">Welcome</h1>
+                <h2 class="font-inter text-3xl text-black mb-8">To</h2>
+                <p class="font-inter text-xl font-bold leading-relaxed mb-10">
+                    ReadShift<br>
+                    the application that empowers dyslexic readers
+                </p>
+            </div>
+        </div>
+
+        <!-- Fuchsia Line -->
+        <div class="h-2 bg-fuchsia-600 w-full rounded-md my-8"></div>
+
+        <!-- Scan QR Code Section -->
+        <section class="text-left px-8 mb-8">
+            <h3 class="font-bold text-2xl mb-4 text-black">Instruction: Scan the QR code to begin installation</h3>
+            <ul class="list-custom-bullet text-lg">
+                <li>Step 1 - Using your mobile device or camera, scan the QR code</li>
+                <li>Step 2 - Click the link that appears to begin download</li>
+                <li>Step 3 - Approve installation if necessary</li>
+                <li>Step 4 - Access the 'ReadShift' app by selecting the icon in your home screen or in your app listing</li>
+            </ul>
+        </section>
+
+        <!-- Centered QR Code Picture -->
+        <div class="qr-code-container text-center my-8">
+            <!-- Placeholder for the QR Code image. Replace 'https://placehold.co/200x200/ff00ff/ffffff?text=QR+Code' with your actual QR code image URL. -->
+     
+            <img src="src/images/ReadShift_QR_Code.png" alt="Scan to access Readshift" class="mx-auto max-w-[200px] w-4/5 border-4 border-fuchsia-600 rounded-lg p-2 bg-white">
+        </div>
+
+        <!-- Video Instructions Section -->
+        <section class="text-left px-8">
+            {{/*  Video Installation Instructions  */}}
+            <video>link.mp4</video>
+            <h3 class="font-bold text-2xl mb-4 text-black">Watch this video to help</h3>
+            <div class="text-center mt-4">
+                <a href="https://www.example.com/video-review" target="_blank" class="text-fuchsia-600 hover:underline text-xl font-bold">Video Review Link</a>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
