@@ -1,0 +1,17 @@
+3 Servers
+     - Web page - > Vite Server 
+     - Ollama - > Gemma3n
+     - TTS -> Piper Server (?)
+     - 
+
+
+Next Steps
+Input - text
+Receive text
+    Gemma -> 
+        Pass Sentence to TTS
+        Childify, Define, Create Sentence, Spell Together -> Pass to TTS
+    TTS - > records New
+    Gemma -  > Plays New File
+    Child Hears File Audio
+
