@@ -48,6 +48,13 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
+
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
         
         .celebration-pulse {
             animation: celebrationPulse 0.6s ease-in-out;
@@ -233,6 +240,72 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <!-- Camera Screen -->
+    <div id="camera-screen" class="screen hidden fixed inset-0 bg-black flex flex-col">
+        <video id="camera-video" autoplay playsinline class="w-full h-full object-cover"></video>
+        
+        <div class="absolute top-4 left-4 z-10">
+            <button id="camera-back-btn" class="bg-gray-800/50 text-white rounded-full p-2 hover:bg-gray-700/70 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 p-6 flex justify-center items-center bg-gradient-to-t from-black/50 to-transparent">
+            <button id="camera-help-btn" class="w-20 h-20 bg-white rounded-full border-4 border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" aria-label="Analyze Image"></button>
+        </div>
+    </div>
+
+    <!-- Playback Screen -->
+    <div id="playback-screen" class="screen hidden fixed inset-0 bg-gradient-to-br from-blue-500 to-teal-500 flex flex-col items-center justify-center p-4 text-white">
+        <div class="text-center">
+            <div id="term-visual" class="text-9xl mb-4"></div>
+            <h2 id="current-term" class="text-5xl font-bold mb-8"></h2>
+        </div>
+        <div class="flex gap-4">
+            <button id="play-again-btn" class="bg-white/30 hover:bg-white/40 text-white px-8 py-4 rounded-full text-xl font-bold">Again</button>
+            <button id="next-word-btn" class="bg-secondary hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-xl font-bold">Next</button>
+        </div>
+        <button id="playback-back-btn" class="absolute top-4 left-4 bg-black/20 p-2 rounded-full text-white">Back</button>
+    </div>
+
+    <!-- Interaction Screen -->
+    <div id="interaction-screen" class="screen hidden fixed inset-0 bg-gradient-to-br from-pink-500 to-yellow-500 flex flex-col items-center justify-center p-4 text-white">
+        <h2 class="text-3xl font-bold mb-4">Try saying the word!</h2>
+        <div id="recording-status" class="hidden text-lg mb-4">Listening...</div>
+        <button id="record-btn" class="bg-red-500 hover:bg-red-600 text-white w-24 h-24 rounded-full flex items-center justify-center text-4xl font-bold shadow-lg mb-6">🎙️</button>
+        <button id="playback-recording-btn" class="hidden bg-white/30 hover:bg-white/40 text-white px-6 py-3 rounded-full mb-6">Play My Voice</button>
+        <button id="interaction-continue-btn" class="bg-primary hover:bg-indigo-600 text-white px-8 py-4 rounded-full text-xl font-bold">Continue</button>
+    </div>
+
+    <!-- Celebration Screen -->
+    <div id="celebration-screen" class="screen hidden fixed inset-0 bg-gradient-to-br from-yellow-400 to-green-400 flex flex-col items-center justify-center p-4 text-white">
+        <div class="text-9xl mb-4">🎉</div>
+        <h2 class="text-4xl font-bold mb-2">Amazing Job!</h2>
+        <p class="text-xl mb-8">You're a learning superstar!</p>
+        <div class="flex gap-4">
+            <button id="celebration-continue-btn" class="bg-secondary hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-xl font-bold">Learn Another!</button>
+            <button id="celebration-home-btn" class="bg-white/30 hover:bg-white/40 text-white px-8 py-4 rounded-full text-xl font-bold">Go Home</button>
+        </div>
+    </div>
+
+    <!-- Feedback Overlay -->
+    <div id="feedback-overlay" class="screen hidden fixed inset-0 bg-black/70 flex-col items-center justify-center z-50 text-white text-center p-4">
+        <div class="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-white mb-4"></div>
+        <p id="feedback-text" class="text-xl font-semibold">Processing...</p>
+    </div>
+
+    <!-- Follow-up Action Screen -->
+    <div id="challenge-prompt-screen" class="screen hidden fixed inset-0 bg-black/70 flex-col items-center justify-center z-50 text-white text-center p-4">
+        <div class="bg-gradient-to-br from-indigo-600 to-purple-700 p-8 rounded-3xl shadow-2xl max-w-lg w-full">
+            <div class="text-5xl mb-4">🧙</div>
+            <h2 id="challenge-question" class="text-2xl font-bold mb-6">Would you like to have a spell challenge?</h2>
+            <div id="challenge-actions" class="flex justify-center gap-4">
+                <button data-action="accept" class="challenge-btn bg-secondary hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-xl font-bold">Yes!</button>
+                <button data-action="decline" class="challenge-btn bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 rounded-full text-xl font-bold">No, thanks</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -1,18 +1,16 @@
+OLD APP.JS
 // ReadShift - Dyslexia-Friendly Learning PWA
 import mainController from './src/main-controller.js';
 import ttsService from './src/services/tts-service.js';
 
 class ReadShiftApp {
     constructor() {
-        this.currentScreen = 'loading'; // Tracks the visible screen
-        this.appState = 'idle';         // Manages interaction state: 'idle', 'listening_for_spelling'
+        this.currentScreen = 'loading';
         this.userData = {};
         this.currentTermIndex = 0;
         this.isRecording = false;
         this.recognition = null;
         this.camera = null;
-        this.activeText = null;     // To store the full text from the last scan
-        this.challengeWord = null;  // To store the current word for the spelling challenge
         
         // Initialize app
         this.init();
@@ -91,12 +89,6 @@ class ReadShiftApp {
     // Voice Command Handler
     handleVoiceCommand(command) {
         console.log('Voice command:', command);
-
-        // If we are waiting for a spelling, handle that first and ignore other commands.
-        if (this.appState === 'listening_for_spelling') {
-            this.handleSpellingAttempt(command);
-            return;
-        }
         
         // Global commands
         if (command.includes('start') && this.currentScreen === 'home-screen') {
@@ -109,17 +101,8 @@ class ReadShiftApp {
             this.showInteraction();
         } else if (command.includes('back')) {
             this.goBack();
-        } else if (command.includes('continue') && (this.currentScreen === 'interaction-screen' || this.currentScreen === 'celebration-screen')) {
+        } else if (command.includes('continue')) {
             this.continue();
-        }
-
-        // Spelling challenge commands
-        if (this.currentScreen === 'challenge-prompt-screen') {
-            if (command.includes('yes')) {
-                this.acceptChallenge();
-            } else if (command.includes('no')) {
-                this.declineChallenge();
-            }
         }
     }
 
@@ -160,14 +143,9 @@ class ReadShiftApp {
         // Camera screen
         const cameraHelpBtn = document.getElementById('camera-help-btn');
         if (cameraHelpBtn) {
-            const analyze = () => {
+            cameraHelpBtn.addEventListener('click', () => {
                 this.animateButtonPress('camera-help-btn');
                 this.analyzeImage();
-            };
-            cameraHelpBtn.addEventListener('click', analyze);
-            cameraHelpBtn.addEventListener('touchstart', e => {
-                e.preventDefault(); // prevent click from firing as well
-                analyze();
             });
         }
 
@@ -285,18 +263,6 @@ class ReadShiftApp {
                 this.resetApp();
             });
         }
-
-        // Challenge prompt screen
-        const challengeActions = document.getElementById('challenge-actions');
-        if (challengeActions) {
-            challengeActions.addEventListener('click', (e) => {
-                if (e.target.classList.contains('challenge-btn')) {
-                    const action = e.target.dataset.action;
-                    if (action === 'accept') this.acceptChallenge();
-                    if (action === 'decline') this.declineChallenge();
-                }
-            });
-        }
     }
 
     // Animation helpers
@@ -306,32 +272,16 @@ class ReadShiftApp {
         setTimeout(() => button.classList.remove('button-press'), 200);
     }
 
-    showLoadingIndicator(show, text = 'Analyzing...') {
-        const overlay = document.getElementById('loading-overlay'); // Assumes an element with this ID exists
-        if (overlay) {
-            const overlayText = overlay.querySelector('.loading-text'); // Assumes a child with this class
-            if (show) {
-                if (overlayText) {
-                    overlayText.textContent = text;
-                }
-                overlay.classList.remove('hidden');
-            } else {
-                overlay.classList.add('hidden');
-            }
-        }
-    }
     // Screen Management
     showScreen(screenId) {
         // Hide all screens
         document.querySelectorAll('.screen').forEach(screen => {
             screen.classList.add('hidden');
-            screen.classList.remove('active');
         });
         
         // Show target screen
         const targetScreen = document.getElementById(screenId);
         targetScreen.classList.remove('hidden');
-        targetScreen.classList.add('active');
         targetScreen.classList.add('fade-in');
         
         this.currentScreen = screenId;
@@ -476,43 +426,24 @@ class ReadShiftApp {
 
     async analyzeImage() {
         const videoElement = document.getElementById('camera-video');
-        if (!videoElement || !this.camera || videoElement.paused || videoElement.ended || videoElement.videoWidth === 0) {
+        if (!videoElement || !this.camera || videoElement.paused || videoElement.ended) {
             console.error("Camera stream is not active or video element not found.");
             ttsService.speak("I can't see anything right now. Please try again.");
             return;
         }
 
-        this.showLoadingIndicator(true, 'Analyzing...');
+        const canvas = document.createElement('canvas');
+        canvas.width = videoElement.videoWidth;
+        canvas.height = videoElement.videoHeight;
+        const context = canvas.getContext('2d');
+        if (!context) return;
+        context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
-        try {
-            const canvas = document.createElement('canvas');
-            canvas.width = videoElement.videoWidth;
-            canvas.height = videoElement.videoHeight;
-            const context = canvas.getContext('2d');
-            if (!context) {
-                throw new Error("Could not get canvas context.");
-            }
-            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+        // The ollama client expects the base64 string without the data URI prefix.
+        const base64ImageData = canvas.toDataURL('image/jpeg').split(',')[1];
 
-            // The ollama client expects the base64 string without the data URI prefix.
-            const base64ImageData = canvas.toDataURL('image/jpeg').split(',')[1];
-
-            // The main controller now handles the entire flow, including UI updates and speech.
-            const extractedText = await mainController.startReadShiftFlow(base64ImageData);
-
-            if (extractedText) {
-                this.activeText = extractedText;
-                this.promptForChallenge();
-            } else {
-                // Handle case where no text is found
-                ttsService.speak("I couldn't find any text in the picture. Let's try again!");
-            }
-        } catch (error) {
-            console.error('Error during image analysis:', error);
-            ttsService.speak("Oops! Something went wrong while I was trying to read that. Please try again.");
-        } finally {
-            this.showLoadingIndicator(false);
-        }
+        // The main controller now handles the entire flow, including UI updates and speech.
+        await mainController.startReadShiftFlow(base64ImageData);
     }
 
     showRandomTerm() {
@@ -558,45 +489,6 @@ class ReadShiftApp {
         }, 1000);
     }
 
-    promptForChallenge() {
-        this.showScreen('challenge-prompt-screen');
-        ttsService.speak("Would you like to have a spell challenge?");
-    }
-
-    async acceptChallenge() {
-        this.hideScreen('challenge-prompt-screen');
-        const word = await mainController.startSpellingChallenge(this.activeText);
-        this.challengeWord = word;
-
-        if (this.challengeWord) {
-            console.log(`The current challenge word is: ${this.challengeWord}`);
-            // After the TTS prompt finishes, we listen for the spelling.
-            this.appState = 'listening_for_spelling';
-            // A better UI indicator for listening would be ideal here.
-            console.log("State changed: Now listening for spelling of:", this.challengeWord);
-        }
-    }
-
-    async handleSpellingAttempt(spelling) {
-        this.appState = 'idle'; // Reset state immediately to prevent multiple triggers
-        
-        const isCorrect = await mainController.checkUserSpelling(this.challengeWord, spelling);
-
-        if (this.challengeWord) {
-            ttsService.speak(`That's it! You spelled ${this.challengeWord} perfectly!`);
-            this.showCelebration();
-        } else {
-            ttsService.speak(`That was a good try! Let's try that word again.`);
-            // Re-initiate the challenge for the same word.
-            this.acceptChallenge(); // This will re-read the word and spelling and set the state again.
-        }
-    }
-
-    declineChallenge() {
-        this.hideScreen('challenge-prompt-screen');
-        ttsService.speak("Okay, no problem!");
-    }
-
     // Recording functionality
     startRecording() {
         this.isRecording = true;
@@ -620,7 +512,7 @@ class ReadShiftApp {
 
     // Celebration
     showCelebration() {
-        this.showScreen('celebration-screen');
+        this.showScreen('celebration-screen'); // This screen does not exist in begin.html
         ttsService.speak("Awesome! You're getting smarter every day! Give yourself a big high five!");
         
         // Play celebration sound effect (simulate)
@@ -640,7 +532,7 @@ class ReadShiftApp {
             case 'camera-screen':
                 this.goHome();
                 break;
-            case 'playback-screen':
+            case 'playback-screen': // This screen does not exist in begin.html
                 this.startApp();
                 break;
             case 'interaction-screen':

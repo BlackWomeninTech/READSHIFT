@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - AI Vision Assistant</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="ReadShift - A dyslexia-friendly learning app for children">
+    <meta name="theme-color" content="#4F46E5">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+    
+    <!-- Apple PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ReadShift">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4F46E5',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        danger: '#EF4444',
+                        success: '#22C55E'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .mascot-bounce {
+            animation: mascotBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes mascotBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .celebration-pulse {
+            animation: celebrationPulse 0.6s ease-in-out;
+        }
+        
+        @keyframes celebrationPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .button-press {
+            animation: buttonPress 0.2s ease-in-out;
+        }
+        
+        @keyframes buttonPress {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+        
+        .speaking-animation {
+            animation: speaking 1s ease-in-out infinite;
+        }
+        
+        @keyframes speaking {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-400 via-pink-300 to-blue-400 min-h-screen overflow-hidden">
+    <!-- Camera/Listening Screen -->
+    <div id="camera-screen" class="screen flex flex-col min-h-screen">
+        <div class="flex-1 relative">
+            <video id="camera-video" class="w-full h-full object-cover" autoplay playsinline></video>
+            <div class="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                <div class="text-center">
+                    <div class="text-6xl mb-4 mascot-bounce">👁️</div>
+                    <p class="text-white text-2xl font-bold mb-4 drop-shadow-lg">Show me a word!</p>
+                    <div id="listening-indicator" class="text-white text-lg">🎤 Listening for "Help me"...</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 flex justify-center space-x-4">
+            <button id="camera-help-btn" class="bg-accent hover:bg-yellow-500 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+                <span class="mr-2">🆘</span>
+                HELP ME
+            </button>
+            
+            <button id="camera-back-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+                <span class="mr-2">⬅️</span>
+                BACK
+            </button>
+        </div>
+    </div>
+
+    <!-- Term Playback Screen -->
+    <div id="playback-screen" class="screen hidden flex flex-col items-center justify-center min-h-screen p-6">
+        <div class="text-center mb-8">
+            <div id="speaking-mascot" class="text-9xl mb-6 speaking-animation">🗣️</div>
+            <div id="term-visual" class="text-6xl mb-4">📖</div>
+            <div class="bg-white bg-opacity-20 rounded-2xl p-6 backdrop-blur-sm">
+                <p class="text-white text-xl mb-2">Now learning about:</p>
+                <p id="current-term" class="text-white text-3xl font-bold">[Audio Only]</p>
+            </div>
+        </div>
+        
+        <div class="flex space-x-6 mb-8">
+            <button id="play-again-btn" class="bg-secondary hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+                <span class="mr-2">🔁</span>
+                AGAIN
+            </button>
+            
+            <button id="next-word-btn" class="bg-primary hover:bg-indigo-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+                <span class="mr-2">⏭️</span>
+                NEXT
+            </button>
+        </div>
+        
+        <div class="flex items-center space-x-2 mb-4">
+            <div class="flex space-x-1">
+                <div class="w-3 h-3 bg-white rounded-full opacity-50"></div>
+                <div class="w-3 h-3 bg-white rounded-full"></div>
+                <div class="w-3 h-3 bg-white rounded-full opacity-50"></div>
+                <div class="w-3 h-3 bg-white rounded-full opacity-50"></div>
+                <div class="w-3 h-3 bg-white rounded-full opacity-50"></div>
+            </div>
+        </div>
+        
+        <button id="playback-back-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-full text-lg font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+            <span class="mr-2">⬅️</span>
+            BACK
+        </button>
+    </div>
+
+    <!-- Interaction Screen -->
+    <div id="interaction-screen" class="screen hidden flex flex-col items-center justify-center min-h-screen p-6">
+        <div class="text-center mb-8">
+            <div class="text-8xl mb-6 mascot-bounce">🎤</div>
+            <h2 class="text-white text-3xl font-bold mb-4 drop-shadow-lg">Say it with me!</h2>
+            <p class="text-white text-xl mb-6">Press and hold to record</p>
+        </div>
+        
+        <button id="record-btn" class="bg-danger hover:bg-red-600 text-white px-12 py-8 rounded-full text-2xl font-bold shadow-2xl transition-all duration-200 transform hover:scale-105 mb-8">
+            <span class="mr-3">🎙️</span>
+            RECORD
+        </button>
+        
+        <div id="recording-status" class="text-white text-lg mb-6 hidden">
+            <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                <span>Recording...</span>
+            </div>
+        </div>
+        
+        <button id="playback-recording-btn" class="bg-secondary hover:bg-emerald-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105 mb-6 hidden">
+            <span class="mr-2">🔊</span>
+            PLAY MY VOICE
+        </button>
+        
+        <button id="interaction-continue-btn" class="bg-primary hover:bg-indigo-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+            <span class="mr-2">✨</span>
+            CONTINUE
+        </button>
+    </div>
+
+    <!-- Celebration Screen -->
+    <div id="celebration-screen" class="screen hidden flex flex-col items-center justify-center min-h-screen p-6">
+        <div class="text-center celebration-pulse">
+            <div class="text-9xl mb-6">🎉</div>
+            <h2 class="text-white text-4xl font-bold mb-4 drop-shadow-lg">Awesome!</h2>
+            <p class="text-white text-2xl mb-8 drop-shadow-md">You're getting smarter every day!</p>
+            
+            <div class="flex space-x-2 mb-8">
+                <div class="text-4xl">⭐</div>
+                <div class="text-4xl">⭐</div>
+                <div class="text-4xl">⭐</div>
+            </div>
+        </div>
+        
+        <button id="celebration-continue-btn" class="bg-accent hover:bg-yellow-500 text-white px-12 py-6 rounded-full text-2xl font-bold shadow-2xl transition-all duration-200 transform hover:scale-105 mb-6">
+            <span class="mr-3">🚀</span>
+            NEXT ADVENTURE
+        </button>
+        
+        <button id="celebration-home-btn" class="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 rounded-full text-xl font-bold shadow-lg transition-all duration-200 transform hover:scale-105">
+            <span class="mr-2">🏠</span>
+            HOME
+        </button>
+    </div>
+
+    <div class="fixed top-4 left-4">
+        <a href="/" class="text-white/80 text-sm hover:text-white transition-colors bg-black/20 px-3 py-2 rounded-full backdrop-blur-sm">
+            ← Back to readshift.app
+        </a>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
