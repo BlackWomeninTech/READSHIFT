@@ -1,28 +1,33 @@
 # ReadShift
 
-A dyslexia-friendly learning app for children ages 4-12. ReadShift uses AI-powered visual recognition and text-to-speech to help children learn new words and concepts in an engaging, accessible way.
+A privacy-first reading assistant for ages 8-13+. ReadShift uses locally-run AI to help users understand difficult text from books, websites, or homework. All processing happens on your device, ensuring complete privacy.
 
 ## Features
 
-- **Visual Learning**: Point the camera at any word to learn about it
-- **Text-to-Speech**: Clear, child-friendly audio explanations
-- **Interactive Practice**: Voice recording and playback
-- **Progress Tracking**: Monitor learning achievements
-- **Offline First Functionality**: Works without internet connection
-- **COPPA Compliant**: Safe and secure for children
+- **Local AI-Powered OCR**: Use your camera to capture text from physical books or screens.
+- **Copy & Paste**: Analyze text directly from your clipboard.
+- **AI-Powered Assistance**: Get definitions and explanations for complex sentences, tailored for learners.
+- **Advanced Text-to-Speech**: Listen to any text with high-quality, natural-sounding voices.
+- **100% Offline & Private**: Requires a local AI server (Ollama). No data ever leaves your computer.
 
 ## Getting Started
 
-1. Open the app in your browser
-2. Complete parent registration or try demo mode
-3. Start learning by pointing the camera at words
-4. Listen to explanations and practice pronunciation
+This PWA requires a local AI server to be running on your computer.
+
+1. **Install Ollama**: Follow the instructions at [https://ollama.com/](https://ollama.com/) to install Ollama for your operating system.
+2. **Download the AI Model**: Open your terminal or command prompt and run the following command:
+   ```bash
+   ollama run llava
+   ```
+   *(Note: We recommend `llava` as it is a multimodal model capable of both vision and text tasks. `gemma` is also a great option for text-only tasks.)*
+3. **Configure Ollama for Web Access (if needed)**: You may need to configure Ollama to accept requests from the browser. See the Ollama documentation for details on setting `OLLAMA_ORIGINS`.
+4. **Launch ReadShift**: Open the ReadShift app in your browser.
+5. **Start Analyzing**: Use the camera to point at text or paste it into the text area.
 
 ## Parental Controls
 
 Access parental settings with the password: `parent123`
 
 - Adjust volume levels
-- Export progress reports
 - Manage learning modes
 - Reset app data
