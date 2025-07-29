@@ -15,3 +15,5 @@ Receive text
     Gemma -  > Plays New File
     Child Hears File Audio
 
+Fix Vite Caching Issues: 
+rm -rf node_modules/.vite

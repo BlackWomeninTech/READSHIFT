@@ -6,10 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadShift - Installation Page</title>
-    <!-- Tailwind CSS CDN for utility classes
-    
-    -->
-    {{/*  <script src="https://cdn.tailwindcss.com"></script>  */}}
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for 'Dancing Script' (as a Curlz MT alternative) and 'Inter' (default) -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -73,14 +71,16 @@
         <!-- Centered QR Code Picture -->
         <div class="qr-code-container text-center my-8">
             <!-- Placeholder for the QR Code image. Replace 'https://placehold.co/200x200/ff00ff/ffffff?text=QR+Code' with your actual QR code image URL. -->
-     
-            <img src="src/images/ReadShift_QR_Code.png" alt="Scan to access Readshift" class="mx-auto max-w-[200px] w-4/5 border-4 border-fuchsia-600 rounded-lg p-2 bg-white">
+            <img src="src/images/ReadShift_QR_Code.png" alt="QR code for ReadShift app installation" class="mx-auto max-w-[200px] w-4/5 border-4 border-fuchsia-600 rounded-lg p-2 bg-white">
         </div>
 
         <!-- Video Instructions Section -->
         <section class="text-left px-8">
             {{/*  Video Installation Instructions  */}}
-            <video>link.mp4</video>
+            <video controls class="w-full rounded-lg shadow-md mb-4">
+                <source src="link.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
             <h3 class="font-bold text-2xl mb-4 text-black">Watch this video to help</h3>
             <div class="text-center mt-4">
                 <a href="https://www.example.com/video-review" target="_blank" class="text-fuchsia-600 hover:underline text-xl font-bold">Video Review Link</a>

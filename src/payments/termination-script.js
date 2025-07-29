@@ -1,0 +1,1 @@
+// Turn off app after 365 days, force renewals

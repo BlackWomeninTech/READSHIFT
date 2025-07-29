@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Piper Test</title>
+</head>
+<body>
+  <h1>Testing Piper/Amy Voice</h1>
+  <button id="speakBtn">Speak</button>
+
+  <script type="module">
+    import tts from './src/services/tts-service.js';
+
+    const btn = document.getElementById('speakBtn');
+
+    async function start() {
+      await tts.initialize({
+        piperBaseUrl: '/vendor/piper'
+      });
+
+      await tts.loadVoice(
+        '/vendor/piper/en_US-amy-low.onnx.json',
+        '/vendor/piper/en_US-amy-low.onnx'
+      );
+
+      btn.disabled = false;
+    }
+
+    btn.addEventListener('click', () => {
+      tts.speak("Hi, I'm Amy from Piper and I'm working perfectly now.");
+    });
+
+    start();
+  </script>
+</body>
+</html>

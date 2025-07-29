@@ -34,6 +34,9 @@ class ReadShiftApp {
         // Load learning data
         await this.loadLearningData();
         
+        // Initialize TTS Service
+        await this.initializeTts();
+
         // Show appropriate screen
         setTimeout(() => {
             this.hideScreen('loading-screen');
@@ -45,6 +48,27 @@ class ReadShiftApp {
                 this.showScreen('registration-screen');
             }
         }, 2000);
+    }
+
+    // TTS Initialization
+    async initializeTts() {
+        try {
+            console.log('Initializing TTS Service...');
+            // This assumes your piper-wasm files are in /public/vendor/piper/
+            // If they are elsewhere, you can pass the path in the config:
+            // await ttsService.initialize({ piperBaseUrl: '/path/to/piper' });
+            await ttsService.initialize();
+            console.log('TTS Service initialized. Loading Amy voice...');
+            
+            // The voice files should be in your public directory, e.g., /public/voices/
+            await ttsService.loadVoice(
+                '/voices/en_US-amy-medium.onnx.json',
+                '/voices/en_US-amy-medium.onnx'
+            );
+            console.log('TTS Voice "Amy" loaded successfully.');
+        } catch (error) {
+            console.error('Failed to initialize custom TTS voice:', error);
+        }
     }
 
     // Service Worker Registration
@@ -405,39 +429,23 @@ class ReadShiftApp {
 
     // Learning Data
     async loadLearningData() {
-        // Sample learning data - in production, this would be loaded from a JSON file
-        this.learningData = [
-            {
-                term: "gravity",
-                definition: "Gravity is the force that pulls things down to the ground. When you drop a ball, gravity makes it fall down instead of floating away!",
-                visual: "🌍",
-                difficulty: 1
-            },
-            {
-                term: "rainbow",
-                definition: "A rainbow is a beautiful arc of colors that appears in the sky after it rains. It has red, orange, yellow, green, blue, indigo, and violet colors!",
-                visual: "🌈",
-                difficulty: 1
-            },
-            {
-                term: "butterfly",
-                definition: "A butterfly is a beautiful insect with colorful wings. It starts as a caterpillar, then transforms into a butterfly in an amazing process!",
-                visual: "🦋",
-                difficulty: 1
-            },
-            {
-                term: "ocean",
-                definition: "The ocean is a huge body of salt water that covers most of our planet. It's home to whales, dolphins, fish, and many other sea creatures!",
-                visual: "🌊",
-                difficulty: 2
-            },
-            {
-                term: "telescope",
-                definition: "A telescope is a special tool that makes far away things look bigger and closer. Astronomers use telescopes to study stars and planets!",
-                visual: "🔭",
-                difficulty: 2
+        try {
+            const response = await fetch('./learning-data.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        ];
+            this.learningData = await response.json();
+            console.log('Learning data loaded successfully from JSON file.');
+        } catch (error) {
+            console.error('Could not load learning data:', error);
+            // Fallback to a minimal set of data in case of an error
+            this.learningData = [{
+                term: "error",
+                definition: "Something went wrong loading the learning data. Please check the console for details.",
+                visual: "⚠️",
+                difficulty: 1
+            }];
+        }
     }
 
     // Learning Flow

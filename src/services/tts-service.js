@@ -113,4 +113,11 @@ class PiperTTS {
         audioBuffer.getChannelData(0).set(audioSamples);
 
         const source = this.audioContext.createBufferSource();
-        source.buffer
+        source.buffer = audioBuffer;
+        source.connect(this.gainNode);
+        source.onended = () => this.playNextInQueue();
+        source.start(0);
+    }
+}
+
+export default new PiperTTS();

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ReadShift</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="readTogether.css" />
+</head>
+<body>
+  <div class="read-shift-container" aria-live="polite">
+    <header class="read-shift-header">
+      <h1>ReadShift</h1>
+      <p>Paste your text below and I'll read it out loud!</p>
+      <!--  save space to input vision show me your book and I'll read it to you.  -->
+    </header>
+
+    <main class="read-shift-main">
+      <div class="input-area">
+        <textarea id="textInput" placeholder="Paste your sentence or paragraph here..." rows="8" aria-label="Text input area"></textarea>
+        <button id="readBtn" class="action-button" aria-label="Read text and find hard words">🔊 Read to Me!</button>
+      </div>
+
+      <div id="loading" class="loading-indicator" style="display: none;">
+        <p>Finding tricky words...</p>
+        <div class="spinner"></div>
+      </div>
+
+      <div id="wordsSection" class="hard-words-section" style="display: none;">
+        <h2>Tricky Words</h2>
+        <p>Click a word to hear its meaning.</p>
+        <div id="wordsContainer" class="words-container"></div>
+        <button id="readAllBtn" class="secondary-button">🗣️ Read all together</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="readTogether.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{ //Collections
+  "_id": ObjectId,
+
+  "name": String,
+  "email": String,
+  "passwordHash": String,
+  "createdAt": ISODate,
+
+  "compliance": {
+    "coppaChecked": Boolean,
+    "privacyPolicyAccepted": Boolean,
+    "acceptedAt": ISODate
+  },
+
+  "payments": [
+    {
+      "paymentId": String,
+      "amount": Decimal128,
+      "currency": String,
+      "purchaseDate": ISODate,
+      "status": String,
+      "description": String
+    }
+  ],
+
+  "subscription": {
+    "status": String,
+    "purchaseDate": ISODate,
+    "expiryDate": ISODate,
+    "lastRenewalReminderSent": ISODate,
+    "renewalRemindersSentCount": NumberInt,
+    "isAppActive": Boolean,
+    "lastActiveCheck": ISODate,
+    "accessKey": String
+  }
+}

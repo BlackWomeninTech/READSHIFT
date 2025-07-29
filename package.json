@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --cache",
+    "lint:watch": "nodemon --watch src/ --ext ts,tsx --exec \"npm run lint\"",
+    "typecheck": "tsc --noEmit --watch -p tsconfig.app.json",
+    "tts:serve": "piper --model ./voices/en_US-amy-medium.onnx --port 5002",
+    "readshift": "concurrently -n \"vite,ollama,tts\" -c \"auto\" \"npm:dev\" \"ollama run gemma3n:e2b\" \"npm:tts:serve\""
   },
   "dependencies": {
     "lucide-react": "^0.344.0",
@@ -20,10 +24,12 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "concurrently": "^8.2.2",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
     "globals": "^15.9.0",
+    "nodemon": "^3.1.4",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.3",
