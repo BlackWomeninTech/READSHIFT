@@ -8,10 +8,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "readai": "ollama run readshift",
+    "tails": "npx @tailwindcss/cli -i ./src/input.css -o ./output.css --watch",
+    "server": "node server.js",
     "now": "live-server src",
-    "tails": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
+    "readshift": "concurrently \"npm:serve\" \"npm:server\" \"npm:tails\""
   },
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "live-server": "^1.2.0"
   },
   "dependencies": {

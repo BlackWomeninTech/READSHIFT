@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         currentText = ocrResult;
 
+        // Clean the text of markdown characters and punctuation
+        currentText = currentText.replace(/(\*\*|\*|_|~|#)/g, ''); 
+
         // 2. UI Transition
         scanSection.classList.add('hidden');
         interactionSection.classList.remove('hidden');
