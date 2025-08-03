@@ -1,0 +1,23 @@
+{
+  "name": "readshift-c",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "now": "live-server src",
+    "tails": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "tailwindcss": "^4.1.11"
+  }
+}
