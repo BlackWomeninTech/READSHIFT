@@ -61,7 +61,7 @@ app.post('/synthesize', (req, res) => {
             if (err) {
                 console.error(`sendFile error: ${err}`);
             }
-            // You can re-enable this later if you want to clean up the files
+            // You can re-enable this later to clear file cache
             // fs.unlinkSync(outputPath);
         });
     });

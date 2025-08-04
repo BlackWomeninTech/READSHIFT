@@ -17,12 +17,14 @@
 </div>
         <div id="scan-section" class="space-y-4 items-center justify-center">
           
-            <div class="w-full aspect-video rounded-2xl flex items-center justify-center">
-                <p class="text-grey-500 text-2xl font-semibold">Camera View Placeholder []</p>
-            </div>
-            <button id="scan-btn" class="w-full bg-blue-700 text-white font-bold text-2xl py-4 rounded-xl shadow-lg hover:bg-blue-200 transition-transform transform hover:scale-105 active:scale-100 flex items-center justify-center gap-3">
-                Scan Text
-            </button>
+           <h1 class="text-3xl font-extrabold text-rs-dark animate-fade-in-down">Let's Read Together!</h1>
+<p class="text-rs-dark/70 mb-4">Paste the text you're reading here.</p>
+
+<textarea id="text-input" rows="8" class="w-full p-4 border-2 bg-white/50 border-gray-200 rounded-xl text-lg focus:ring-4 focus:ring-rs-blue/50 focus:border-rs-blue outline-none transition" placeholder="The quick brown fox..."></textarea>
+
+<button id="read-aloud-btn" class="w-full bg-rs-blue text-black-400 font-bold text-2xl py-4 rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105 active:scale-100 flex items-center justify-center gap-3">
+    Read Aloud
+</button>
         </div>
 
 <div id="interaction-section" >
@@ -43,7 +45,8 @@
      <button id="reset-btn" class="w-full mt-8 text-gray-500 font-bold py-3 rounded-lg hover:bg-gray-200/50 transition">Scan New Text</button>
 </div>
     </main>
-    
+    <div id="animation-container" class="fixed inset-0 pointer-events-none overflow-hidden"></div>
+</body>
     <script src="app.js"></script>
 </body>
 </html>

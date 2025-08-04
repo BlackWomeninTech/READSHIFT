@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - Parent Resources</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font and base styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Define custom colors for easy use */
+        .bg-primary { background-color: #4F46E5; }
+        .bg-secondary { background-color: #10B981; }
+        .bg-accent { background-color: #F59E0B; }
+        .text-primary { color: #4F46E5; }
+
+        /* Modal and overlay styles for the contact form */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom gradient for the body, matching the registration page */
+        .gradient-background {
+            background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center min-h-screen gradient-background p-8">
+    <div class="w-full max-w-5xl bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+        <!-- Header with Logo, FAQ Link, and Logout Button -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center">
+                <!-- Logo for the app -->
+                <img
+                    src="https://placehold.co/64x64/A78BFA/ffffff?text=Logo"
+                    alt="ReadShift Logo"
+                    class="w-16 h-16 mr-4"
+                />
+                <h1 class="text-4xl font-bold text-gray-800 text-primary">Parent Resources</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="faq.html" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+                    FAQ
+                </a>
+                <button id="contactUsBtn" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+                    Contact Us
+                </button>
+                <button
+                    id="logoutButton"
+                    class="bg-primary text-white font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-300 ease-in-out"
+                >
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <p class="text-lg text-gray-600 mb-8">
+            Here are some helpful resources for parents to support their children's reading journey.
+        </p>
+
+        <!-- Grid for Resource Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Card 1 -->
+            <a href="https://dyslexia.yale.edu/resources/parents/support-for-parents-of-children-with-dyslexia/" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Yale Center for Dyslexia & Creativity</h3>
+                    <p class="text-gray-600">A comprehensive resource for parents with children who have dyslexia, offering support, research, and practical advice.</p>
+                </div>
+            </a>
+            <!-- Card 2 -->
+            <a href="https://www.readingrockets.org/topics/parents" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Reading Rockets - For Parents</h3>
+                    <p class="text-gray-600">Offers tips, articles, and videos on teaching reading, with a focus on helping struggling readers and those with learning disabilities.</p>
+                </div>
+            </a>
+            <!-- Card 3 -->
+            <a href="https://www.understood.org/" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Understood.org</h3>
+                    <p class="text-gray-600">Provides personalized resources, tools, and support for parents of children with learning and attention issues like dyslexia.</p>
+                </div>
+            </a>
+            <!-- Card 4 -->
+            <a href="https://www.ldonline.org/ld-topics/reading-comprehension" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">LD OnLine - Reading Comprehension</h3>
+                    <p class="text-gray-600">An excellent resource with articles and strategies specifically for improving reading comprehension skills in children.</p>
+                </div>
+            </a>
+            <!-- Card 5 -->
+            <a href="https://www.ncld.org/research/states-districts-schools/for-families-and-advocates/" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">National Center for Learning Disabilities (NCLD)</h3>
+                    <p class="text-gray-600">Provides guidance and advocacy support for families dealing with learning disabilities and reading challenges.</p>
+                </div>
+            </a>
+            <!-- Card 6 -->
+            <a href="https://www.childrensbooks.org/" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Children's Book Council</h3>
+                    <p class="text-gray-600">Discover new books to engage young readers and help them find genres and authors they love, fostering a love for reading.</p>
+                </div>
+            </a>
+            <!-- Card 7 -->
+            <a href="https://kidshealth.org/en/parents/learn.html" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">KidsHealth - Learning & School</h3>
+                    <p class="text-gray-600">Offers articles and advice on a wide range of topics related to school, learning, and study habits for kids of all ages.</p>
+                </div>
+            </a>
+            <!-- Card 8 -->
+            <a href="https://www.scholastic.com/parents/books-and-reading/reading-resources/reading-tips-activities.html" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Scholastic Reading Resources</h3>
+                    <p class="text-gray-600">Provides practical reading tips, printable activities, and fun book lists to make reading a family affair.</p>
+                </div>
+            </a>
+            <!-- Card 9 -->
+            <a href="https://www.understood.org/articles/en/helping-kids-with-dyslexia-and-reading-issues" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Understood - Dyslexia & Reading Issues</h3>
+                    <p class="text-gray-600">Offers specific articles and support for parents of children with dyslexia and other reading-related challenges.</p>
+                </div>
+            </a>
+            <!-- Card 10 -->
+            <a href="https://www.pbs.org/parents/topics/reading-language" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">PBS Parents - Reading & Language</h3>
+                    <p class="text-gray-600">Interactive games, activities, and articles designed to make learning to read and write fun for young children.</p>
+                </div>
+            </a>
+            <!-- Card 11 -->
+            <a href="https://www.theliteracysite.com/" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">The Literacy Site</h3>
+                    <p class="text-gray-600">A website that provides free resources and supports literacy for children in need by a simple click.</p>
+                </div>
+            </a>
+            <!-- Card 12 -->
+            <a href="https://www.getty.edu/education/kids_and_families/learn/" target="_blank" class="block">
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">The Getty - Learning Resources</h3>
+                    <p class="text-gray-600">Explore art and stories to build vocabulary and comprehension skills in a creative and engaging way.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Contact Form Modal -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-gray-800">Contact Us</h3>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <form id="contactForm">
+                <div class="mb-4">
+                    <label for="contactName" class="block text-gray-700 font-semibold mb-2">Name</label>
+                    <input
+                        type="text"
+                        id="contactName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                    />
+                </div>
+                <div class="mb-4">
+                    <label for="contactEmail" class="block text-gray-700 font-semibold mb-2">Email</label>
+                    <input
+                        type="email"
+                        id="contactEmail"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                    />
+                </div>
+                <div class="mb-6">
+                    <label for="contactMessage" class="block text-gray-700 font-semibold mb-2">Message</label>
+                    <textarea
+                        id="contactMessage"
+                        rows="4"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                    ></textarea>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent transition duration-300 ease-in-out"
+                >
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Copyright Footer -->
+    <p class="mt-8 text-center text-gray-700">
+        <a href="mailto:info2@blackwomenintech.com" class="hover:underline">ReadShift™</a> &copy; 2025
+    </p>
+    <script>
+        // Get the logout button element
+        const logoutButton = document.getElementById('logoutButton');
+        
+        // Modal elements
+        const contactUsBtn = document.getElementById('contactUsBtn');
+        const contactModal = document.getElementById('contactModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const contactForm = document.getElementById('contactForm');
+        const contactName = document.getElementById('contactName');
+        const contactEmail = document.getElementById('contactEmail');
+        const contactMessage = document.getElementById('contactMessage');
+
+        // Add a click event listener to the logout button
+        logoutButton.addEventListener('click', () => {
+            // Remove the token from local storage
+            localStorage.removeItem('token');
+            // Redirect the user to the login page
+            window.location.href = 'login.html';
+        });
+
+        // Show the modal when the "Contact Us" button is clicked
+        contactUsBtn.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+
+        // Hide the modal when the close button is clicked
+        closeModalBtn.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+
+        // Handle the contact form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = encodeURIComponent(contactName.value);
+            const email = encodeURIComponent(contactEmail.value);
+            const message = encodeURIComponent(contactMessage.value);
+            
+            const subject = encodeURIComponent('Contact from ReadShift User');
+            const body = encodeURIComponent(`Name: ${contactName.value}\nEmail: ${contactEmail.value}\n\nMessage:\n${contactMessage.value}`);
+            
+            window.location.href = `mailto:info2@blackwomenintech.com?subject=${subject}&body=${body}`;
+            
+            contactModal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

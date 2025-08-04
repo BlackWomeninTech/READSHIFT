@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift Parent Registration</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font and base styles */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Define custom colors for easy use */
+        .bg-primary { background-color: #4F46E5; }
+        .bg-secondary { background-color: #10B981; }
+        .bg-accent { background-color: #F59E0B; }
+        .text-primary { color: #4F46E5; }
+
+        /* Custom styles for the message box */
+        .message-box {
+            display: none;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+        .message-success {
+            background-color: #22C55E;
+            color: white;
+        }
+        .message-error {
+            background-color: #EF4444;
+            color: white;
+        }
+        
+        /* Modal and overlay styles for the contact form */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            max-width: 90%;
+            width: 400px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom gradient for the body, matching the registration page */
+        .gradient-background {
+            background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen gradient-background p-8">
+    <div class="p-8 w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200">
+        <!-- Logo for the app -->
+        <img
+            src="https://placehold.co/100x100/A78BFA/ffffff?text=Logo"
+            alt="ReadShift Logo"
+            class="mx-auto mb-4 w-24 h-24"
+        />
+        <!-- Registration Form Container -->
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6 text-primary">ReadShift Parent Registration</h2>
+        <form id="registrationForm">
+            <!-- Name Field -->
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-semibold mb-2">Full Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Enter your full name"
+                />
+            </div>
+            <!-- Email Field -->
+            <div class="mb-4">
+                <label for="email" class="block text-gray-700 font-semibold mb-2">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Enter your email"
+                />
+            </div>
+            <!-- Password Field -->
+            <div class="mb-6">
+                <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Create a password"
+                />
+            </div>
+            <!-- Age Field -->
+            <div class="mb-6">
+                <label for="age" class="block text-gray-700 font-semibold mb-2">Age</label>
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    min="18"
+                    max="100"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    placeholder="Enter your age"
+                />
+            </div>
+            
+            <!-- Message Box for displaying success/error messages -->
+            <div id="messageBox" class="message-box"></div>
+            
+            <button
+                type="submit"
+                class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent transition duration-300 ease-in-out"
+            >
+                Register
+            </button>
+        </form>
+        <p class="mt-4 text-center text-gray-600">
+            Already have an account? <a href="login.html" class="text-primary font-semibold hover:underline">Log in here</a>
+        </p>
+    </div>
+    <!-- Contact Us button -->
+    <button id="contactUsBtn" class="mt-4 text-center text-gray-700 hover:underline">Contact Us</button>
+
+    <!-- Copyright Footer -->
+    <p class="mt-8 text-center text-gray-700">
+        <a href="mailto:info2@blackwomenintech.com" class="hover:underline">ReadShift™</a> &copy; 2025
+    </p>
+
+    <!-- Contact Form Modal -->
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-gray-800">Contact Us</h3>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <form id="contactForm">
+                <div class="mb-4">
+                    <label for="contactName" class="block text-gray-700 font-semibold mb-2">Name</label>
+                    <input
+                        type="text"
+                        id="contactName"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                    />
+                </div>
+                <div class="mb-4">
+                    <label for="contactEmail" class="block text-gray-700 font-semibold mb-2">Email</label>
+                    <input
+                        type="email"
+                        id="contactEmail"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                    />
+                </div>
+                <div class="mb-6">
+                    <label for="contactMessage" class="block text-gray-700 font-semibold mb-2">Message</label>
+                    <textarea
+                        id="contactMessage"
+                        rows="4"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        required
+                    ></textarea>
+                </div>
+                <button
+                    type="submit"
+                    class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent transition duration-300 ease-in-out"
+                >
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // Get the form and message box elements from the DOM
+        const registrationForm = document.getElementById('registrationForm');
+        const messageBox = document.getElementById('messageBox');
+        
+        // Modal elements
+        const contactUsBtn = document.getElementById('contactUsBtn');
+        const contactModal = document.getElementById('contactModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const contactForm = document.getElementById('contactForm');
+        const contactName = document.getElementById('contactName');
+        const contactEmail = document.getElementById('contactEmail');
+        const contactMessage = document.getElementById('contactMessage');
+
+        /**
+         * Displays a message to the user in a custom message box.
+         * @param {string} message The message to display.
+         * @param {string} type The type of message ('success' or 'error').
+         */
+        function showMessage(message, type) {
+            messageBox.textContent = message;
+            messageBox.className = `message-box message-${type}`;
+            messageBox.style.display = 'block';
+        }
+
+        /**
+         * Validates the form fields and displays error messages if necessary.
+         * @returns {boolean} True if the form is valid, false otherwise.
+         */
+        function validateForm() {
+            let isValid = true;
+            // Clear any previous messages
+            messageBox.style.display = 'none';
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const age = document.getElementById('age').value;
+
+            // Name validation
+            if (!name) {
+                showMessage('Full name is required.', 'error');
+                isValid = false;
+                return isValid;
+            }
+
+            // Email validation using the provided regex
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                showMessage('Email address is required.', 'error');
+                isValid = false;
+                return isValid;
+            } else if (!emailRegex.test(email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                isValid = false;
+                return isValid;
+            }
+
+            // Password validation
+            if (!password) {
+                showMessage('Password is required.', 'error');
+                isValid = false;
+                return isValid;
+            }
+
+            // Age validation
+            if (!age) {
+                showMessage('Age is required.', 'error');
+                isValid = false;
+                return isValid;
+            } else if (age < 18) {
+                showMessage('You must be 18 or older to register.', 'error');
+                isValid = false;
+                return isValid;
+            }
+
+            return isValid;
+        }
+
+        // Add an event listener for form submission
+        registrationForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            if (!validateForm()) {
+                return;
+            }
+
+            // Get the values from the form
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const age = document.getElementById('age').value;
+
+            try {
+                // The registration endpoint expects 'coppaChecked' and 'privacyPolicyAccepted'
+                const coppaChecked = true;
+                const privacyPolicyAccepted = true;
+
+                // Make the API call to your backend to register the user
+                const response = await fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password, coppaChecked, privacyPolicyAccepted })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Registration successful! Redirecting to login...', 'success');
+                    setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+                } else {
+                    showMessage(data.message || 'Registration failed. Please try again.', 'error');
+                }
+
+            } catch (error) {
+                console.error('Registration error:', error);
+                showMessage('A network error occurred. Please try again.', 'error');
+            }
+        });
+        
+        // Show the modal when the "Contact Us" button is clicked
+        contactUsBtn.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+
+        // Hide the modal when the close button is clicked
+        closeModalBtn.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+
+        // Handle the contact form submission
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = encodeURIComponent(contactName.value);
+            const email = encodeURIComponent(contactEmail.value);
+            const message = encodeURIComponent(contactMessage.value);
+            
+            const subject = encodeURIComponent('Contact from ReadShift User');
+            const body = encodeURIComponent(`Name: ${contactName.value}\nEmail: ${contactEmail.value}\n\nMessage:\n${contactMessage.value}`);
+            
+            window.location.href = `mailto:info2@blackwomenintech.com?subject=${subject}&body=${body}`;
+            
+            contactModal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

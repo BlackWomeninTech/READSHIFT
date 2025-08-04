@@ -1,8 +1,37 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   /* Other base styles */
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+}
+/* EMOJI CELEBRATION */
+
+.emoji-balloon {
+    /* Replaces: absolute bottom-0 text-5xl */
+    position: absolute;
+    bottom: 0;
+    font-size: 3rem; /* text-5xl */
+
+    /* Replaces: animate-float-up */
+    animation-name: float-up;
+    animation-duration: 4s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        /* Emoji will float up 300px and fade out */
+        transform: translateY(-300px);
+        opacity: 0;
+    }
 }

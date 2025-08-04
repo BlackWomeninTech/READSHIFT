@@ -1,205 +1,204 @@
 // src/app.js
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("The app has loaded and is ready to roll!");
+
     // --- DOM Elements ---
-    const scanBtn = document.getElementById('scan-btn');
+    const textInput = document.getElementById('text-input');
+    const readAloudBtn = document.getElementById('read-aloud-btn');
     const repeatBtn = document.getElementById('repeat-btn');
     const defineBtn = document.getElementById('define-btn');
     const spellBtn = document.getElementById('spell-btn');
     const resetBtn = document.getElementById('reset-btn');
-
     const scanSection = document.getElementById('scan-section');
     const interactionSection = document.getElementById('interaction-section');
     const statusDisplay = document.getElementById('status-display').querySelector('p');
+    const emojiRegex = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{2B50}]/gu;
 
     // --- App State ---
     let currentText = '';
     let spellingChallenges = [];
 
     // --- Event Listeners ---
-    scanBtn.addEventListener('click', handleScan);
-    repeatBtn.addEventListener('click', () => speakWithPiper(currentText, "Reading again..."));
-    defineBtn.addEventListener('click', handleDefine);
-    spellBtn.addEventListener('click', handleSpell);
-    resetBtn.addEventListener('click', handleReset);
+ // src/app.js -> in the Event Listeners section
+readAloudBtn.addEventListener('click', handleReadAloud);
+repeatBtn.addEventListener('click', handleRepeat); // Updated
+defineBtn.addEventListener('click', handleDefine);
+spellBtn.addEventListener('click', handleSpell);
+resetBtn.addEventListener('click', handleReset);
 
-    // --- Core Logic ---
-//     // Temp Test
-//     async function handleScan() { 
-//     console.log("Testing TTS with a simple message...");
-//     updateStatus("Testing audio...");
-//     await speakWithPiper("Hi there. My name is Amy, I'd love to help you learn to read!"); // Test with a simple string
-//     updateStatus("Test complete.");
-// }
-    async function handleScan() {
-        // In a real app, this triggers the camera and OCR process.
-        updateStatus("Scanning for text...");
-        
-        // 1. (MOCK) Get text from Gemma3n OCR
-        const ocrResult = await ocrWithGemma();
-        if (!ocrResult) {
-            updateStatus("Couldn't find any text. Try again!", true);
+    // --- Initial Health Check ---
+    checkBackendStatus();
+
+    // ===============================================
+    //               CORE LOGIC FUNCTIONS
+    // ===============================================
+
+    async function handleReadAloud() {
+        let inputText = textInput.value.trim();
+        if (!inputText) {
+            alert("Please enter some text first!");
             return;
         }
-        currentText = ocrResult;
-
-        // Clean the text of markdown characters and punctuation
-        currentText = currentText.replace(/(\*\*|\*|_|~|#)/g, ''); 
-
-        // 2. UI Transition
-        scanSection.classList.add('hidden');
-        interactionSection.classList.remove('hidden');
-
-        // 3. Initial read-aloud
-        await speakWithPiper(currentText, `I see this text: ${currentText}`);
-
-        // 4. (MOCK) Get spelling challenges from Gemma3n
-        spellingChallenges = await getSpellingChallenges(currentText);
-        console.log('Gemma identified:', spellingChallenges); // For debugging
-        
-        updateStatus("What would you like to do next?");
+        updateStatus("Asking Nyla to read...");
+        const nylaResponse = await getNylaResponse(`Please read the following text aloud: "${inputText}"`);
+        if (nylaResponse) {
+            currentText = nylaResponse;
+            updateStatus("Reading aloud...");
+            await speakWithPiper(currentText);
+            updateStatus("What would you like to do next?");
+            scanSection.classList.add('hidden');
+            interactionSection.classList.remove('hidden');
+            getSpellingChallenges(currentText);
+        }
     }
 
-    async function handleDefine() {
-        if (spellingChallenges.length === 0) {
-            await speakWithPiper("I didn't find any tricky words this time!", "No tricky words found.");
-            return;
-        }
+    // Repeat with Nyla
+    function handleRepeat() {
+    speakWithPiper(currentText, "Reading it again...");
+}
 
-        const definitions = await getDefinitions(spellingChallenges);
-        for (const def of definitions) {
-            const textToSpeak = `${def.word}. This word means: ${def.definition}`;
-            await speakWithPiper(textToSpeak, `Defining "${def.word}"...`);
-        }
-        updateStatus("All done! What now?");
+// Tricky Words with Nyla (Definitions)
+async function handleDefine() {
+    if (spellingChallenges.length === 0) {
+        await speakWithPiper("I couldn't find any tricky words this time!");
+        return;
     }
+    const wordToDefine = spellingChallenges[0];
+    updateStatus(`Asking Nyla to define "${wordToDefine}"...`);
 
-    async function handleSpell() {
-        if (spellingChallenges.length === 0) {
-            await speakWithPiper("No tricky words to spell this time!", "No tricky words found.");
-            return;
-        }
+    const definitionPrompt = `Please define the word "${wordToDefine}" in one simple sentence for a child.`;
+    const nylaResponse = await getNylaResponse(definitionPrompt);
 
-        for (const word of spellingChallenges) {
-            const spelling = word.split('').join('. '); // Pauses for TTS
-            const textToSpeak = `Let's spell ${word}. ${spelling}.`;
-            await speakWithPiper(textToSpeak, `Spelling "${word}"...`);
-        }
-        updateStatus("All spelled out! What's next?");
+    if (nylaResponse) {
+        // Use the regex to create a clean, speech-only version of the text
+        const speechText = nylaResponse.replace(emojiRegex, '');
+        await speakWithPiper(speechText);
     }
+    updateStatus("What would you like to do next?");
+}
+// Spell with Nyla
+async function handleSpell() {
+    if (spellingChallenges.length === 0) {
+        await speakWithPiper("No tricky words to spell this time!");
+        return;
+    }
+    const wordToSpell = spellingChallenges[0];
+    updateStatus(`Asking Nyla to spell "${wordToSpell}"...`);
     
+    const spellingPrompt = `Please spell the word "${wordToSpell}".`;
+    const nylaResponse = await getNylaResponse(spellingPrompt);
+
+    if (nylaResponse) {
+        await speakWithPiper(nylaResponse);
+    }
+    updateStatus("What would you like to do next?");
+}
+
     function handleReset() {
-        scanSection.classList.remove('hidden');
+        textInput.value = '';
         interactionSection.classList.add('hidden');
-        updateStatus("Ready to scan!");
+        scanSection.classList.remove('hidden');
+        updateStatus("Ready to read!");
+          readAloudBtn.disabled = false;
     }
-    
-    // --- UI & MOCK API Helpers ---
+
+    // ===============================================
+    //               API HELPER FUNCTIONS
+    // ===============================================
+
     function updateStatus(message, isError = false) {
-        statusDisplay.textContent = message;
-        statusDisplay.parentElement.classList.toggle('bg-red-100', isError);
-        statusDisplay.classList.toggle('text-red-700', isError);
-    }
-    
-// src/app.js
-
-async function speakWithPiper(textToSpeak, statusUpdate = "...") {
-    console.log(`Requesting Piper TTS to say: "${textToSpeak}"`);
-    updateStatus(statusUpdate);
-
-    // --- CHOOSE YOUR VOICE HERE ---
-    const selectedVoice =  'en_US-amy-medium.onnx'; // The filename of your selected voice
-
-    try {
-        const response = await fetch('http://localhost:3016/synthesize', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                text: textToSpeak,
-                voice: selectedVoice,
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error(`Server error: ${response.statusText}`);
+        if (statusDisplay) {
+            statusDisplay.textContent = message;
+            statusDisplay.parentElement.classList.toggle('bg-red-100', isError);
+            statusDisplay.parentElement.classList.toggle('text-red-700', isError);
         }
-
-        // Get the audio data as a "blob"
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-        const audio = new Audio(audioUrl);
-        
-        // Play the audio and wait for it to finish
-        await audio.play();
-        return new Promise(resolve => {
-            audio.onended = resolve;
-        });
-
-    } catch (error) {
-        console.error('Error with Piper TTS request:', error);
-        updateStatus("Could not play audio. Is the Piper server running?", true);
-    }
-}
-
-    // --- Gemma3n Functions ---
-// src/app.js
-
-async function ocrWithGemma() {
-  // In a real app, this would be the base64 string of the image from the camera.
-  // We'll use a placeholder for now, so the request has the right shape.
-  const base64ImageData = ""; // This will be empty for our test.
-
-  // The endpoint for your local Ollama server
-  const ollamaEndpoint = 'http://localhost:11434/api/generate';
-
-  updateStatus("Asking Gemma to read the text...");
-
-  try {
-    const response = await fetch(ollamaEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: "gemma3n:e4b", // Your specific model (Change Model Name)
-        prompt: "Please extract the text from this image.",
-        stream: false, // We'll ask for the full response at once for simplicity
-        images: [base64ImageData]
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`Ollama API error: ${response.statusText}`);
     }
 
-    const data = await response.json();
-    console.log("Gemma Response:", data); // Log the full response for debugging
+    async function speakWithPiper(textToSpeak, statusUpdate = "...") {
+        console.log(`Requesting Piper TTS to say: "${textToSpeak}"`);
+        updateStatus(statusUpdate);
+        const selectedVoice = 'en_US-amy-medium.onnx';
+        try {
+            const response = await fetch('http://127.0.0.1:3016/synthesize', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: textToSpeak, voice: selectedVoice }),
+            });
+            if (!response.ok) throw new Error(`Server error: ${response.statusText}`);
+            const audioBlob = await response.blob();
+            const audioUrl = URL.createObjectURL(audioBlob);
+            const audio = new Audio(audioUrl);
+            await audio.play();
+            return new Promise(resolve => { audio.onended = resolve; });
+        } catch (error) {
+            console.error('Error with Piper TTS request:', error);
+            updateStatus("Could not play audio. Is the Piper server running?", true);
+        }
+    }
 
-    // The actual text is in the 'response' property of the returned JSON
-    return data.response.trim();
-    
-
-  } catch (error) {
-    console.error("Error contacting Ollama:", error);
-    updateStatus("I couldn't connect to Gemma. Is Ollama running?", true);
-    return null;
-  }
-}
-
-    // ===================
+    async function getNylaResponse(userPrompt) {
+        const ollamaEndpoint = 'http://127.0.0.1:11434/api/generate';
+        try {
+            const response = await fetch(ollamaEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: "nyla:latest",
+                    prompt: userPrompt,
+                    stream: false,
+                })
+            });
+            if (!response.ok) throw new Error(`Ollama API error: ${response.statusText}`);
+            const data = await response.json();
+            console.log("Nyla's Response:", data);
+            return data.response.trim();
+        } catch (error) {
+            console.error("Error contacting Nyla (Ollama):", error);
+            updateStatus("I couldn't connect to Nyla. Is Ollama running?", true);
+            return null;
+        }
+    }
 
     async function getSpellingChallenges(text) {
-        // The "API" is a structured prompt to Gemma3n via your local Ollama server.
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        return text.split(/\s+/).filter(w => w.length > 7).map(w => w.replace(/[^a-zA-Z]/g, ''));
+        // This is still a MOCK function. We will replace this later.
+        console.log("Identifying spelling challenges (mock)...");
+        spellingChallenges = text.split(/\s+/).filter(w => w.length > 7).map(w => w.replace(/[^a-zA-Z]/g, ''));
+        return spellingChallenges;
     }
 
-    async function getDefinitions(words) {
-        return words.map(word => ({
-            word: word,
-            definition: `a very simple definition for the word ${word}`
-        }));
+    // ===============================================
+    //               HEALTH CHECK FUNCTIONS
+    // ===============================================
+
+    async function checkBackendStatus() {
+        const mainButton = document.getElementById('read-aloud-btn');
+        if (!mainButton) return; // Exit if button isn't found
+        
+        mainButton.disabled = true;
+        mainButton.textContent = 'Loading Services...';
+        
+        const ollamaReady = await isServiceReady('http://127.0.0.1:11434', 'Ollama');
+        const piperReady = await isServiceReady('http://127.0.0.1:3016', 'Piper TTS');
+
+        if (ollamaReady && piperReady) {
+            console.log("All services are ready!");
+            mainButton.disabled = false;
+            mainButton.textContent = 'Read Aloud';
+        } else {
+            console.log("Services not ready, will check again...");
+            setTimeout(checkBackendStatus, 3000);
+        }
+    }
+
+    async function isServiceReady(url, serviceName) {
+        try {
+            await fetch(url, { mode: 'no-cors' });
+            console.log(`${serviceName} is responsive.`);
+            return true;
+        } catch (e) {
+            console.log(`Waiting for ${serviceName}...`);
+            return false;
+        }
     }
 });
