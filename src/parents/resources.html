@@ -4,67 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadShift - Parent Resources</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font and base styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Define custom colors for easy use */
-        .bg-primary { background-color: #4F46E5; }
-        .bg-secondary { background-color: #10B981; }
-        .bg-accent { background-color: #F59E0B; }
-        .text-primary { color: #4F46E5; }
-
-        /* Modal and overlay styles for the contact form */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            max-width: 90%;
-            width: 400px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Custom gradient for the body, matching the registration page */
-        .gradient-background {
-            background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
-        }
-    </style>
+     <!-- Tailwind CSS CDN -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="../output.css" rel="stylesheet">
+ 
 </head>
-<body class="flex flex-col items-center min-h-screen gradient-background p-8">
-    <div class="w-full max-w-5xl bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+
+ <body class="mb-0 parentsBkgrd ">
+    <div class="flex flex-col items-center justify-center min-h-screen  p-8">
         <!-- Header with Logo, FAQ Link, and Logout Button -->
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center">
-                <!-- Logo for the app -->
-                <img
-                    src="https://placehold.co/64x64/A78BFA/ffffff?text=Logo"
-                    alt="ReadShift Logo"
-                    class="w-16 h-16 mr-4"
-                />
-                <h1 class="text-4xl font-bold text-gray-800 text-primary">Parent Resources</h1>
+                   <div class="avatar w-30 items-center  ml-[80px] p-0">
+        <!-- Logo for the app -->
+        <img
+            src="/images/new_readshift_logo_transparent2.png"
+            alt="ReadShift Logo"
+            class="mx-auto mb-4 w-24 h-24 items-center"
+        />
+        </div>
+                <h1 class="text-4xl font-bold text-gray-800 text-primary">Resources</h1>
             </div>
-            <div class="flex items-center space-x-4">
-                <a href="faq.html" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+            
+        </div>
+<div class="flex space-x-4">
+                <a href="faq.html" class="bg-gray-300 text-gray-800 font-bold py-2 px-2 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
                     FAQ
                 </a>
-                <button id="contactUsBtn" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+                <button id=""ass="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
                     Contact Us
                 </button>
                 <button
@@ -74,14 +41,12 @@
                     Logout
                 </button>
             </div>
-        </div>
-
         <p class="text-lg text-gray-600 mb-8">
             Here are some helpful resources for parents to support their children's reading journey.
         </p>
 
         <!-- Grid for Resource Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 w-6xl gap-6">
             <!-- Card 1 -->
             <a href="https://dyslexia.yale.edu/resources/parents/support-for-parents-of-children-with-dyslexia/" target="_blank" class="block">
                 <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
@@ -139,7 +104,7 @@
                 </div>
             </a>
             <!-- Card 9 -->
-            <a href="https://www.understood.org/articles/en/helping-kids-with-dyslexia-and-reading-issues" target="_blank" class="block">
+            <a href="https://www.understood.org/en/topics/dyslexia" target="_blank" class="block">
                 <div class="bg-gray-100 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 ease-in-out h-full">
                     <h3 class="text-xl font-bold text-gray-800 mb-2">Understood - Dyslexia & Reading Issues</h3>
                     <p class="text-gray-600">Offers specific articles and support for parents of children with dyslexia and other reading-related challenges.</p>
@@ -213,10 +178,19 @@
         </div>
     </div>
 
-    <!-- Copyright Footer -->
-    <p class="mt-8 text-center text-gray-700">
-        <a href="mailto:info2@blackwomenintech.com" class="hover:underline">ReadShift™</a> &copy; 2025
-    </p>
+   <footer class="w-full mt-4 text-sm text-gray-600 mb-4 mx-4">
+        <div class="flex justify-between items-end ">
+            <p>&copy; <span id="copyright-year"></span> ReadShift™ by BWIT All Rights Reserved</p>
+            <div class="text-right">
+                <p class="font-semibold text-center">Important Notices</p>
+                <div class="flex space-x-4 justify-end">
+                    <a href="disclosures/coppa.html" class="hover:underline">COPPA</a>
+                    <a href="disclosures/privacy.html" class="hover:underline">Privacy Policy</a>
+                    <a href="disclosures/terms.html" class="hover:underline">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
     <script>
         // Get the logout button element
         const logoutButton = document.getElementById('logoutButton');

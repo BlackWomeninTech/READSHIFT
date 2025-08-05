@@ -5,75 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadShift Parent Registration</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font and base styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="../output.css" rel="stylesheet">
+     
+    </head>
+   
+   <!-- {{/*  <body class="mb-0 parentsBkgrd parentBody">
 
-        /* Define custom colors for easy use */
-        .bg-primary { background-color: #4F46E5; }
-        .bg-secondary { background-color: #10B981; }
-        .bg-accent { background-color: #F59E0B; }
-        .text-primary { color: #4F46E5; }
+    <div class="flex flex-col items-center justify-center min-h-screen">  */}} -->
 
-        /* Custom styles for the message box */
-        .message-box {
-            display: none;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-        }
-        .message-success {
-            background-color: #22C55E;
-            color: white;
-        }
-        .message-error {
-            background-color: #EF4444;
-            color: white;
-        }
-        
-        /* Modal and overlay styles for the contact form */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            max-width: 90%;
-            width: 400px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
+ <body class="mb-0 parentsBody parentsBkgrd">
+    <div class="flex flex-col items-center justify-center min-h-screen  p-8">
 
-        /* Custom gradient for the body, matching the registration page */
-        .gradient-background {
-            background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
-        }
-    </style>
-</head>
-<body class="flex flex-col items-center justify-center min-h-screen gradient-background p-8">
-    <div class="p-8 w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200">
+    <div class="p-8 w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200 items-center justify-center ">
+        <div class="avatar w-30 items-center  ml-[130px] p-0">
         <!-- Logo for the app -->
         <img
-            src="https://placehold.co/100x100/A78BFA/ffffff?text=Logo"
+            src="/images/new_readshift_logo_transparent2.png"
             alt="ReadShift Logo"
-            class="mx-auto mb-4 w-24 h-24"
+            class="mx-auto mb-4 w-24 h-24 items-center"
         />
+        </div>
         <!-- Registration Form Container -->
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6 text-primary">ReadShift Parent Registration</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6 text-primary">Parent Registration</h2>
         <form id="registrationForm">
             <!-- Name Field -->
             <div class="mb-4">
@@ -111,7 +65,7 @@
                     placeholder="Create a password"
                 />
             </div>
-            <!-- Age Field -->
+         <!-- Age Field (Removed Age is not relevant to parental accesss) 
             <div class="mb-6">
                 <label for="age" class="block text-gray-700 font-semibold mb-2">Age</label>
                 <input
@@ -124,7 +78,7 @@
                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     placeholder="Enter your age"
                 />
-            </div>
+            </div> -->
             
             <!-- Message Box for displaying success/error messages -->
             <div id="messageBox" class="message-box"></div>
@@ -137,16 +91,11 @@
             </button>
         </form>
         <p class="mt-4 text-center text-gray-600">
-            Already have an account? <a href="login.html" class="text-primary font-semibold hover:underline">Log in here</a>
+            Already have an account? <a href="login.html" class="text-primary font-semibold hover:underline">Sign in</a>
         </p>
     </div>
     <!-- Contact Us button -->
-    <button id="contactUsBtn" class="mt-4 text-center text-gray-700 hover:underline">Contact Us</button>
-
-    <!-- Copyright Footer -->
-    <p class="mt-8 text-center text-gray-700">
-        <a href="mailto:info2@blackwomenintech.com" class="hover:underline">ReadShift™</a> &copy; 2025
-    </p>
+    <button id="contactUsBtn" class="mt-4 text-center text-gray-700 hover:underline">Need Help? Contact Us</button>
 
     <!-- Contact Form Modal -->
     <div id="contactModal" class="modal-overlay">
@@ -192,8 +141,155 @@
             </form>
         </div>
     </div>
-    
+<!-- Acceptance Agreement Modal -->
+    <div id="agreementModal" class="modal-overlay">
+        <div class="modal-content text-center">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Terms of Service</h3>
+            <p class="text-gray-600 mb-6">
+                By submitting, I am agreeing to the 
+                <a href="disclosures/coppa.html" class="text-primary font-semibold hover:underline" target="_blank" rel="noopener noreferrer">COPPA</a>, 
+                <a href="disclosures/privacy.html" class="text-primary font-semibold hover:underline" target="_blank" rel="noopener noreferrer">Privacy Policy</a>, and 
+                <a href="disclosures/terms.html" class="text-primary font-semibold hover:underline" target="_blank" rel="noopener noreferrer">Terms & Conditions</a> 
+                of Readshift. I confirm I have read the necessary disclosures.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button id="cancelAgreementBtn" class="w-full bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-400 transition duration-300">
+                    Cancel
+                </button>
+                <button id="confirmAgreementBtn" class="w-full bg-secondary text-white font-bold py-3 px-4 rounded-lg hover:bg-green-600 transition duration-300">
+                    Access the Site
+                </button>
+            </div>
+        </div>
+    </div>
+  <footer class="w-full mt-2 text-sm text-gray-600 mb-0">
+        <div class="flex justify-between items-end ">
+            <p>&copy; <span id="copyright-year"></span> ReadShift™ by BWIT All Rights Reserved</p>
+            <div class="text-right">
+                <p class="font-semibold text-center">Important Notices</p>
+                <div class="flex space-x-4 justify-end">
+                    <a href="disclosures/coppa.html" class="hover:underline">COPPA</a>
+                    <a href="disclosures/privacy.html" class="hover:underline">Privacy Policy</a>
+                    <a href="disclosures/terms.html" class="hover:underline">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+   </div> <!--End -->
+         <!-- Copyright Footer -->
+  
+
     <script>
+       //Modified Script - NM  - Changes introduced for functionality
+        // --- SECTION 1: GET ELEMENTS ---
+        // This runs once when the page loads to find all the elements we need.
+        const registrationForm = document.getElementById('registrationForm');
+        const messageBox = document.getElementById('messageBox');
+        
+        // Contact Modal Elements
+        const contactUsBtn = document.getElementById('contactUsBtn');
+        const contactModal = document.getElementById('contactModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const contactForm = document.getElementById('contactForm');
+        
+        // Agreement Modal Elements
+        const agreementModal = document.getElementById('agreementModal');
+        const confirmAgreementBtn = document.getElementById('confirmAgreementBtn');
+        const cancelAgreementBtn = document.getElementById('cancelAgreementBtn');
+
+        // --- SECTION 2: HELPER FUNCTIONS ---
+        // These are reusable functions for showing messages and validating the form.
+
+        function showMessage(message, type) {
+            messageBox.textContent = message;
+            // Use Tailwind classes for styling the message box
+            messageBox.className = `p-4 mb-4 rounded-lg font-medium`;
+            if (type === 'success') {
+                messageBox.classList.add('bg-green-500', 'text-white');
+            } else {
+                messageBox.classList.add('bg-red-500', 'text-white');
+            }
+            messageBox.style.display = 'block';
+        }
+
+        function validateForm() {
+            let isValid = true;
+            messageBox.style.display = 'none';
+
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (!name || !email || !password) {
+                showMessage('All fields are required.', 'error');
+                return false;
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Please enter a valid email address.', 'error');
+                return false;
+            }
+            return isValid;
+        }
+
+        // --- SECTION 3: EVENT LISTENERS ---
+        // This is where we tell our buttons what to do when they are clicked.
+
+        // Listener for the main registration form submission
+        registrationForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if (validateForm()) {
+                console.log("Form is valid. Showing agreement modal.");
+                agreementModal.style.display = 'flex';
+            }
+        });
+
+        // Listener for the "Access the Site" button in the agreement modal
+        confirmAgreementBtn.addEventListener('click', () => {
+            const acceptanceDate = new Date().toISOString();
+            console.log("User accepted terms on:", acceptanceDate);
+            // In a real app, you would now send the form data to your backend here.
+
+            agreementModal.style.display = 'none';
+            showMessage('Registration successful! Redirecting...', 'success');
+            setTimeout(() => {
+                window.location.href = 'resources.html';
+            }, 2000);
+        });
+
+        // Listener to close the agreement modal
+        cancelAgreementBtn.addEventListener('click', () => {
+            agreementModal.style.display = 'none';
+        });
+
+        // Listeners for the "Contact Us" modal
+        contactUsBtn.addEventListener('click', () => {
+            contactModal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            contactModal.style.display = 'none';
+        });
+
+        // Listener for the contact form (mailto link)
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const contactName = document.getElementById('contactName').value;
+            const contactEmail = document.getElementById('contactEmail').value;
+            const contactMessage = document.getElementById('contactMessage').value;
+            const subject = encodeURIComponent('Contact from ReadShift User');
+            const body = encodeURIComponent(`Name: ${contactName}\nEmail: ${contactEmail}\n\nMessage:\n${contactMessage}`);
+            window.location.href = `mailto:info2@blackwomenintech.com?subject=${subject}&body=${body}`;
+            contactModal.style.display = 'none';
+        });
+
+        // Set the copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+   <!-- <script>
+    Original Script introduced by Lori
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
         // Get the form and message box elements from the DOM
         const registrationForm = document.getElementById('registrationForm');
         const messageBox = document.getElementById('messageBox');
@@ -206,7 +302,9 @@
         const contactName = document.getElementById('contactName');
         const contactEmail = document.getElementById('contactEmail');
         const contactMessage = document.getElementById('contactMessage');
-
+        const agreementModal = document.getElementById('agreementModal');
+        const confirmAgreementBtn = document.getElementById('confirmAgreementBtn');
+        const cancelAgreementBtn = document.getElementById('cancelAgreementBtn');
         /**
          * Displays a message to the user in a custom message box.
          * @param {string} message The message to display.
@@ -226,11 +324,10 @@
             let isValid = true;
             // Clear any previous messages
             messageBox.style.display = 'none';
-
-            const name = document.getElementById('name').value.trim();
+   const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
-            const age = document.getElementById('age').value;
+            /*  const age = document.getElementById('age').value;  */
 
             // Name validation
             if (!name) {
@@ -258,8 +355,8 @@
                 return isValid;
             }
 
-            // Age validation
-            if (!age) {
+            // Age validation (Removed Age is not relevant to parental accesss)
+            /*  if (!age) {
                 showMessage('Age is required.', 'error');
                 isValid = false;
                 return isValid;
@@ -267,24 +364,60 @@
                 showMessage('You must be 18 or older to register.', 'error');
                 isValid = false;
                 return isValid;
-            }
+            }  */
 
             return isValid;
         }
 
-        // Add an event listener for form submission
+        /*  Revised Registration Form   */
+ // Add an event listener for form submission
+        registrationForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // First, validate the form.
+            // The validateForm() function MUST NOT have any code related to 'age'.
+            if (validateForm()) {
+                // If the form is valid, we don't fetch anything yet.
+                // Instead, we show the agreement modal as you requested.
+                console.log("Form is valid, showing agreement modal...");
+                agreementModal.style.display = 'flex';
+            }
+        });
+        /*  // Add an event listener for form submission
         registrationForm.addEventListener('submit', async (event) => {
             event.preventDefault(); // Prevent the default form submission behavior
 
-            if (!validateForm()) {
-                return;
+       if (validateForm()) {
+                // If form is valid, show the agreement modal/popup
+                agreementModal.style.display = 'flex';
             }
+     });  */
 
+     /*  Agreement Modal */
+        // Add event listener for the final confirmation button
+        confirmAgreementBtn.addEventListener('click', () => {
+            const acceptanceDate = new Date().toISOString();
+            console.log("User accepted terms on:", acceptanceDate);
+
+            // Hide the modal
+            agreementModal.style.display = 'none';
+
+            // Show success message and redirect
+            showMessage('Registration successful! Redirecting...', 'success');
+            setTimeout(() => {
+                // This is where you would redirect to the parent resources screen
+                window.location.href = 'resources.html'; 
+            }, 2000);
+        });
+            // Add event listener for the cancel button
+        cancelAgreementBtn.addEventListener('click', () => {
+            agreementModal.style.display = 'none';
+        });
             // Get the values from the form
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const age = document.getElementById('age').value;
+            /*  const age = document.getElementById('age').value;  */
 
             try {
                 // The registration endpoint expects 'coppaChecked' and 'privacyPolicyAccepted'
@@ -310,8 +443,7 @@
             } catch (error) {
                 console.error('Registration error:', error);
                 showMessage('A network error occurred. Please try again.', 'error');
-            }
-        });
+            };
         
         // Show the modal when the "Contact Us" button is clicked
         contactUsBtn.addEventListener('click', () => {
@@ -337,6 +469,6 @@
             
             contactModal.style.display = 'none';
         });
-    </script>
+    </script> -->
 </body>
 </html>

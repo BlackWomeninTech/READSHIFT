@@ -5,70 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadShift - FAQ</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font and base styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="../output.css" rel="stylesheet">
+     </head>
+ <body class="flex flex-col min-h-screen parentsBkgrd">
 
-        /* Define custom colors for easy use */
-        .bg-primary { background-color: #4F46E5; }
-        .bg-secondary { background-color: #10B981; }
-        .bg-accent { background-color: #F59E0B; }
-        .text-primary { color: #4F46E5; }
-
-        /* Modal and overlay styles for the contact form */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            max-width: 90%;
-            width: 400px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Custom gradient for the body, matching the registration page */
-        .gradient-background {
-            background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
-        }
-    </style>
-</head>
-<body class="flex flex-col items-center min-h-screen gradient-background p-8">
-    <div class="w-full max-w-3xl bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+  <div class="flex flex-col max-w-6xl bg-white rounded-xl shadow-lg border border-gray-200 items center justify-center mx-auto  p-8">  
+  
         <!-- Header with Logo, Back Button, Contact Us, and Logout -->
         <div class="flex justify-between items-center mb-6">
             <div class="flex items-center">
-                <!-- Logo for the app -->
-                <img
-                    src="https://placehold.co/64x64/A78BFA/ffffff?text=Logo"
+                <div class="w-23 h-23 mx-auto">
+       <!-- Logo for the app -->
+                  <img
+                    src="/images/new_readshift_logo_transparent2.png"
                     alt="ReadShift Logo"
-                    class="w-16 h-16 mr-4"
-                />
-                <!-- Decreased font size for the title -->
-                <h1 class="text-3xl font-bold text-gray-800 text-primary">Frequently Asked Questions</h1>
+                    class="w-20 h-full object-contain"/>
+                </div>
+               
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-2">
                 <!-- Decreased font size for the "Back to Resources" button -->
                 <a href="resources.html" class="bg-gray-300 text-gray-800 text-sm font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
-                    Back to Resources
+                  Resources
                 </a>
                 <!-- Decreased font size for the "Contact Us" button -->
-                <button id="contactUsBtn" class="bg-gray-300 text-gray-800 text-sm font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
-                    Contact Us
+                <button id="instructions" class="bg-gray-300 text-gray-800 text-sm font-bold py-2 px-4 rounded-lg shadow-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-300 ease-in-out">
+                    Instructions
                 </button>
                 <button
                     id="logoutButton"
@@ -80,13 +43,16 @@
         </div>
 
         <div class="space-y-6">
+             <h1 class="text-3xl font-bold text-gray-800 text-primary text-center">Frequently Asked Questions</h1>
             <!-- FAQ 1 -->
-            <div class="border-b pb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">How do I renew my account?</h3>
+             
+               <div class="border-b pb-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">What is ReadShift and how can it help my child?</h3>
                 <p class="text-gray-600">
-                    To renew your account, please visit the main website at <a href="https://ReadShift.app" target="_blank" class="text-primary hover:underline">ReadShift.app</a> to sign up again.
+                    ReadShift is a tool designed to help parents support their children with dyslexia, reading disorders, and general reading comprehension. We provide a platform with resources and tools to make the learning process more effective and engaging.
                 </p>
             </div>
+            
             <!-- FAQ 2 -->
             <div class="border-b pb-4">
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Will you sell my child's or my personal information?</h3>
@@ -95,24 +61,28 @@
                 </p>
             </div>
             <!-- FAQ 3 -->
-            <div class="border-b pb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">What is ReadShift and how can it help my child?</h3>
+             <div class="border-b pb-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Is there a cost for this app?</h3>
                 <p class="text-gray-600">
-                    ReadShift is a tool designed to help parents support their children with dyslexia, reading disorders, and general reading comprehension. We provide a platform with resources and tools to make the learning process more effective and engaging.
+                The yearly subscription for ReadShift is $39.99 USD. Annual renewal is required for continued use.
                 </p>
             </div>
+           
             <!-- FAQ 4 -->
-            <div class="border-b pb-4">
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Is there a cost for this service?</h3>
+           <div class="border-b pb-4">
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">How do I renew my account?</h3>
                 <p class="text-gray-600">
-                    Yes. The yearly subscription for ReadShift is $39.99 USD.
+                    To renew your account, please visit the main website at <a href="https://ReadShift.app" target="_blank" class="text-primary hover:underline">ReadShift.app</a> to sign up again.
                 </p>
             </div>
         </div>
     </div>
     <!-- Contact Form Modal -->
     <div id="contactModal" class="modal-overlay">
+          <!-- Decreased font size for the title -->
+
         <div class="modal-content">
+                    
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-2xl font-bold text-gray-800">Contact Us</h3>
                 <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800">&times;</button>
@@ -154,12 +124,25 @@
             </form>
         </div>
     </div>
+
     <!-- Copyright Footer -->
-    <p class="mt-8 text-center text-gray-700">
-        <a href="mailto:info2@blackwomenintech.com" class="hover:underline">ReadShift™</a> &copy; 2025
-    </p>
+    <footer class="w-full m3-2-mt-4 text-sm text-gray-600 ">
+        <div class="flex justify-between items-end">
+            <p>&copy; <span id="copyright-year"></span> ReadShift™ by BWIT All Rights Reserved</p>
+            <div class="text-right">
+                <p class="font-semibold">Important Notices</p>
+                <div class="flex space-x-4 justify-end">
+                    <a href="disclosures/coppa.html" class="hover:underline">COPPA</a>
+                    <a href="disclosures/privacy.html" class="hover:underline">Privacy Policy</a>
+                    <a href="disclosures/terms.html" class="hover:underline">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
         // Get the logout button element
         const logoutButton = document.getElementById('logoutButton');
         

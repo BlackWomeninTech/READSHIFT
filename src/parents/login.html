@@ -5,75 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ReadShift Parent Login</title>
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom font and base styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Define custom colors for easy use */
-        .bg-primary { background-color: #4F46E5; }
-        .bg-secondary { background-color: #10B981; }
-        .bg-accent { background-color: #F59E0B; }
-        .text-primary { color: #4F46E5; }
-
-        /* Custom styles for the message box */
-        .message-box {
-            display: none;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 0.5rem;
-            font-weight: 500;
-        }
-        .message-success {
-            background-color: #22C55E;
-            color: white;
-        }
-        .message-error {
-            background-color: #EF4444;
-            color: white;
-        }
-
-        /* Modal and overlay styles for the contact form */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 50;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            max-width: 90%;
-            width: 400px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Custom gradient for the body, matching the registration page */
-        .gradient-background {
-            background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
-        }
-    </style>
-</head>
-<body class="flex flex-col items-center justify-center min-h-screen gradient-background p-8">
-    <div class="p-8 w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="../output.css" rel="stylesheet">
+ </head>
+<body class="mb-0 parentsBody parentsBkgrd">
+    <div class="flex flex-col items-center justify-center min-h-screen  p-8">
+     <div class="p-8 w-full max-w-md bg-white rounded-xl shadow-lg border border-gray-200 items-center justify-center ">
+        <div class="avatar w-30 items-center  ml-[130px] p-0">
         <!-- Logo for the app -->
         <img
-            src="https://placehold.co/100x100/A78BFA/ffffff?text=Logo"
+            src="/images/new_readshift_logo_transparent2.png"
             alt="ReadShift Logo"
-            class="mx-auto mb-4 w-24 h-24"
+            class="mx-auto mb-4 w-24 h-24 items-center"
         />
+        </div>
+   
         <!-- Login Form Container -->
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6 text-primary">ReadShift Parent Login</h2>
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6 text-primary">Parent Sign In</h2>
         <form id="loginForm">
             <!-- Email Field for Login -->
             <div class="mb-4">
@@ -101,25 +49,21 @@
             </div>
             <!-- Message Box for displaying success/error messages -->
             <div id="messageBox" class="message-box"></div>
+           
             <button
                 type="submit"
                 class="w-full bg-primary text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-accent transition duration-300 ease-in-out"
             >
                 Log In
             </button>
+     
         </form>
         <p class="mt-4 text-center text-gray-600">
             Don't have an account? <a href="register.html" class="text-primary font-semibold hover:underline">Register here</a>
         </p>
     </div>
     <!-- Contact Us button -->
-    <button id="contactUsBtn" class="mt-4 text-center text-gray-700 hover:underline">Contact Us</button>
-
-    <!-- Copyright Footer -->
-    <p class="mt-8 text-center text-gray-700">
-        <a href="mailto:info2@blackwomenintech.com" class="hover:underline">ReadShift™</a> &copy; 2025
-    </p>
-
+    <button id="contactUsBtn" class="mt-4 text-center text-gray-700 hover:underline">Need Help? Contact Us</button>
     <!-- Contact Form Modal -->
     <div id="contactModal" class="modal-overlay">
         <div class="modal-content">
@@ -165,7 +109,22 @@
         </div>
     </div>
 
-    <script>
+  <footer class="w-7xl mt-2 text-sm text-gray-600 mb-0 p-0">
+        <div class="flex justify-between items-end ">
+            <p>&copy; <span id="copyright-year"></span> ReadShift™ by BWIT All Rights Reserved</p>
+            <div class="text-right">
+                <p class="font-semibold text-center">Important Notices</p>
+                <div class="flex space-x-4 justify-end">
+                    <a href="disclosures/coppa.html" class="hover:underline">COPPA</a>
+                    <a href="disclosures/privacy.html" class="hover:underline">Privacy Policy</a>
+                    <a href="disclosures/terms.html" class="hover:underline">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+  
+
+     <script>
         // Get the form and message box elements from the DOM
         const loginForm = document.getElementById('loginForm');
         const messageBox = document.getElementById('messageBox');
@@ -175,25 +134,34 @@
         const contactModal = document.getElementById('contactModal');
         const closeModalBtn = document.getElementById('closeModalBtn');
         const contactForm = document.getElementById('contactForm');
-        const contactName = document.getElementById('contactName');
-        const contactEmail = document.getElementById('contactEmail');
-        const contactMessage = document.getElementById('contactMessage');
+        // ... (other element selectors if needed) ...
 
-        /**
-         * Displays a message to the user in a custom message box.
-         * @param {string} message The message to display.
-         * @param {string} type The type of message ('success' or 'error').
-         */
         function showMessage(message, type) {
             messageBox.textContent = message;
-            messageBox.className = `message-box message-${type}`;
+            messageBox.className = `p-4 mb-4 rounded-lg font-medium`;
+             if (type === 'success') {
+                messageBox.classList.add('bg-green-500', 'text-white');
+            } else {
+                messageBox.classList.add('bg-red-500', 'text-white');
+            }
             messageBox.style.display = 'block';
         }
 
         // Add an event listener for form submission
-        loginForm.addEventListener('submit', async (event) => {
-            event.preventDefault(); // Prevent the default form submission behavior
+        loginForm.addEventListener('submit', (event) => {
+            // This part prevents the form from submitting the default way
+            event.preventDefault(); 
+            
+            // --- NEW DEMO LOGIC ---
+            // This runs when the button is clicked
+            console.log("DEMO ONLY: Sign-in button clicked. Bypassing validation and redirecting...");
+            
+            // Immediately redirect to the resources page
+            window.location.href = 'resources.html'; // Or '../resources.html' if it's in the parent folder
 
+
+
+/*   // --- START OF CODE COMMENTED OUT FOR DEMO PURPOSES ---
             // Clear any previous messages
             messageBox.style.display = 'none';
 
@@ -230,8 +198,9 @@
                 console.error('Login error:', error);
                 showMessage('A network error occurred. Please try again.', 'error');
             }
-        });
-        
+
+        */
+        }); 
         // Show the modal when the "Contact Us" button is clicked
         contactUsBtn.addEventListener('click', () => {
             contactModal.style.display = 'flex';
@@ -253,9 +222,12 @@
             const body = encodeURIComponent(`Name: ${contactName.value}\nEmail: ${contactEmail.value}\n\nMessage:\n${contactMessage.value}`);
             
             window.location.href = `mailto:info2@blackwomenintech.com?subject=${subject}&body=${body}`;
-            
+
             contactModal.style.display = 'none';
         });
+        
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    
     </script>
 </body>
 </html>

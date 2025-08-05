@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "readai": "ollama run nyla",
-      "tails": "npx @tailwindcss/cli -i ./src/input.css -o ./output.css --watch --config ./tailwind.config.js",
+    "tails": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch --config ./tailwind.config.js",
     "server": "node server.js",
     "now": "live-server src",
     "readshift": "concurrently \"npm:tails\" \"npm:server\" \"npm:now\""

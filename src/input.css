@@ -1,21 +1,129 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-body {
-  /* Other base styles */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  
+.bg-primary {
+    background-color: #4F46E5;
 }
+
+.bg-secondary {
+    background-color: #10B981;
+}
+
+.bg-accent {
+    background-color: #F59E0B;
+}
+
+.bluish {
+    color: #4F46E5;
+}
+
+.primary {
+    color: #716af7;
+}
+
+.icecream {
+    background-color: #a9f598
+}
+
+.accent {
+    color: #fbaf7f
+}
+
+.neutral {
+    color: #2C3E50
+}
+
+.base {
+    color: #FEFDFB
+}
+
+.soft-bg {
+    color: #F0F2F7
+}
+
+
+#appBody {
+    background-image: url("./images/background9.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-blend-mode: overlay; */
+    background-attachment: fixed;
+    min-height: 100vh;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    /* opacity: .7; */
+    overflow: hidden;
+}
+
+.parentBody {
+    /* This fixes the scrolling by making the body fill the screen and centering content */
+    min-height: 100vh;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    /* background-color: #E8EAF1; Fallback color, was oklch(94.9% 0.01 253.8) */
+   font-family: 'Inter', sans-serif;
+}
+
+.parentsBkgrd {
+                background: linear-gradient(135deg, #A78BFA 0%, #FBCFE8 25%, #FDE68A 50%, #FBCFE8 75%, #A78BFA 100%);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            /* Custom styles for the message box */
+            .message-box {
+                display: none;
+                padding: 1rem;
+                margin-bottom: 1rem;
+                border-radius: 0.5rem;
+                font-weight: 500;
+            }
+            .message-success {
+                background-color: #22C55E;
+                color: white;
+            }
+            .message-error {
+                background-color: #EF4444;
+                color: white;
+            }
+            
+            /* Modal and overlay styles for the contact form */
+            .modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 50;
+                justify-content: center;
+                align-items: center;
+            }
+            .modal-content {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 0.75rem;
+                max-width: 90%;
+                width: 400px;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+
+/* EMOJI CELEBRATION */
+/* ... your existing emoji code ... */
+
 /* EMOJI CELEBRATION */
 
 .emoji-balloon {
     /* Replaces: absolute bottom-0 text-5xl */
     position: absolute;
     bottom: 0;
-    font-size: 3rem; /* text-5xl */
+    font-size: 3rem;
+    /* text-5xl */
 
     /* Replaces: animate-float-up */
     animation-name: float-up;
@@ -29,6 +137,7 @@ body {
         transform: translateY(0);
         opacity: 1;
     }
+
     100% {
         /* Emoji will float up 300px and fade out */
         transform: translateY(-300px);
