@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - Installation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans p-8">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4">ReadShift Installation Guide</h1>
+        <p class="mb-6">ReadShift runs powerful AI models directly on your computer for maximum privacy and offline use. Please follow these steps to set up your local environment.</p>
+
+        <div class="space-y-4">
+            <h2 class="text-xl font-semibold">1. Install Ollama</h2>
+            <p>Ollama is the tool that runs the AI models. Download and install it from the official website: <a href="https://ollama.com/" target="_blank" class="text-blue-600 hover:underline">https://ollama.com/</a></p>
+
+            <h2 class="text-xl font-semibold">2. Download the AI Model</h2>
+            <p>Once Ollama is installed, open your computer's terminal (Terminal on macOS/Linux, PowerShell or Command Prompt on Windows) and run this command:</p>
+            <pre class="bg-gray-200 p-3 rounded-md text-sm"><code>npm run readshift</code></pre>
+            <p class="text-sm text-gray-600">We recommend the 'llava' model because it can understand both images and text, which is needed for the camera feature.</p>
+
+            <h2 class="text-xl font-semibold">3. Start Using ReadShift</h2>
+            <p>With Ollama running, you are ready to go! <a href="/start" class="text-blue-600 hover:underline">Launch the app</a> and start learning.</p>
+        </div>
+    </div>
+       <footer class="w-full mt-4 text-sm text-gray-600 mb-4 mx-4">
+        <div class="flex justify-between items-end ">
+            <p>&copy; <span id="copyright-year"></span> ReadShift™ by BWIT All Rights Reserved</p>
+            <div class="text-right">
+                <p class="font-semibold text-center">Important Notices</p>
+                <div class="flex space-x-4 justify-end">
+                    <a href="disclosures/coppa.html" class="hover:underline">COPPA</a>
+                    <a href="disclosures/privacy.html" class="hover:underline">Privacy Policy</a>
+                    <a href="disclosures/terms.html" class="hover:underline">Terms &amp; Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
