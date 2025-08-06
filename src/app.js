@@ -42,7 +42,7 @@ resetBtn.addEventListener('click', handleReset);
         return;
     }
 
-    // --- STEP 1: PROVIDE IMMEDIATE FEEDBACK ---
+    // --- STEP 1: PROVIDE FEEDBACK ---
     // Disable the button and update the status the moment the user clicks.
     readAloudBtn.disabled = true;
     updateStatus("Nyla is reading your text...");
@@ -55,7 +55,7 @@ resetBtn.addEventListener('click', handleReset);
         currentText = nylaResponse;
 
         // --- STEP 3: PLAY THE AUDIO ---
-        // Wait for Piper to finish speaking.
+        // Wait for PiperAmy to finish speaking.
         await speakWithPiper(currentText);
 
         // --- STEP 4: UPDATE THE UI ---
