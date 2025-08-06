@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReadShift - Hackathon Submission</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-md">
+        <div class="max-w-5xl mx-auto py-8 px-4 text-center">
+            <img src="/images/new_readshift_logo_transparent2.png" alt="ReadShift Logo" class="w-24 h-24 mx-auto mb-4"/>
+            <h1 class="text-5xl font-extrabold text-indigo-600">ReadShift</h1>
+            <p class="text-xl text-gray-600 mt-2">A Submission for the Google Gemma 3n Impact Challenge</p>
+            <p class="text-lg font-semibold mt-1">by Team ReadShift from Black Women in Technology</p>
+        </div>
+        <nav class="bg-gray-100 border-y">
+            <div class="max-w-5xl mx-auto px-4 py-2 flex justify-center space-x-6 text-sm font-semibold">
+                <a href="#demo" class="text-gray-700 hover:text-indigo-600">Video Demo</a>
+                <a href="#problem" class="text-gray-700 hover:text-indigo-600">The Problem</a>
+                <a href="#solution" class="text-gray-700 hover:text-indigo-600">Our Solution</a>
+                <a href="#tech" class="text-gray-700 hover:text-indigo-600">Tech Stack</a>
+                <a href="#ollama" class="text-gray-700 hover:text-indigo-600">The Ollama Prize</a>
+                <a href="#links" class="text-gray-700 hover:text-indigo-600">Project Links</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-5xl mx-auto p-4 md:p-8">
+        
+        <section id="demo" class="mb-12">
+            <h2 class="text-3xl font-bold mb-4">🎥 Video Demo</h2>
+            <p class="mb-4 text-gray-600">Our 3-minute video tells the story of how ReadShift empowers a child with dyslexia, showcasing the real-world impact and user experience.</p>
+            <div class="aspect-video bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+                <p class="text-gray-500">[Your Embedded Video Player (iframe) Goes Here]</p>
+            </div>
+            <p class="text-center mt-2 text-sm">Direct Link: <a href="[Link to Your YouTube/TikTok/X Video]" class="text-indigo-600 hover:underline">[Link to Your YouTube/TikTok/X Video]</a></p>
+        </section>
+
+        <section id="problem" class="mb-12">
+            <h2 class="text-3xl font-bold mb-4">🎯 The Problem & Our Vision</h2>
+            <div class="space-y-4 text-lg text-gray-700 leading-relaxed">
+                <p>Reading is a gateway to learning, but for millions of children with dyslexia, it's a daily source of frustration and anxiety. Traditional learning tools often fail to accommodate their unique needs, leading to a widening confidence gap. The challenge is to create a tool that is not only effective but also **private, accessible, and works without an internet connection**—crucial for equitable learning in all environments.</p>
+                <p class="font-semibold text-gray-800">Our vision is to transform reading from a barrier into an adventure. We aim to build a patient, AI-powered reading companion that empowers children by giving them tools to overcome challenges independently, fostering confidence and a lifelong love of reading.</p>
+            </div>
+        </section>
+
+        <section id="solution" class="mb-12">
+            <h2 class="text-3xl font-bold mb-4">💡 Our Solution: ReadShift</h2>
+            <p class="text-lg text-gray-700 leading-relaxed mb-4">ReadShift is an offline-first, privacy-focused AI application designed for children aged 6-12. When a child encounters a difficult word or sentence while reading a physical book, they can use the app to:</p>
+            <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
+                <li>**Read Aloud:** The app uses its camera (or text input) to capture the text. Our custom Gemma 3n model, **"Nyla,"** processes and cleans the text, which is then spoken aloud by a clear, child-friendly voice via **Piper TTS**.</li>
+                <li>**Define:** The child can ask for the definition of a tricky word. Nyla provides a simple, age-appropriate explanation, which is then spoken aloud.</li>
+                <li>**Spell:** The child can ask for a word to be spelled out, helping them make the connection between letters and sounds in a multi-sensory way.</li>
+            </ul>
+             <p class="text-lg text-gray-700 leading-relaxed mt-4">Throughout the experience, fun emoji animations provide positive reinforcement, making learning feel like a game.</p>
+        </section>
+<section id="nyla" class="mb-12">
+    <h2 class="text-3xl font-bold mb-4"> Nyla</h2>
+    <p class="text-lg text-gray-700 leading-relaxed">
+        Meet Nyla 🤖
+Meet Nyla, the heart of the ReadShift experience. Nyla is our custom-built AI reading companion, created from Google's powerful **Gemma3n** model and brought to life using a specialized Modelfile within Ollama. We've designed her to be a patient, supportive, and friendly guide for children. When a child encounters a difficult word, Nyla can read the text aloud, provide a simple, age-appropriate definition, or spell the word out clearly. We have carefully programmed her with a child-safe persona, ensuring she never uses confusing formatting and always stays focused on the task of reading. Nyla’s purpose is not just to provide answers, but to build confidence and turn the challenge of reading into a joyful adventure.
+    </p>
+  <div>
+  <h2 class="text-2xl font-bold mb-4 mt-4">Nylas in Action:</h2>
+
+  <h4 class="text-xl font-semibold mb-4">When you click "Read Aloud":</h4>
+  <ul>
+    <li>
+      <strong>Nyla's Task:</strong> We send your raw text to Nyla and ask her to "read it."
+    </li>
+    <li>
+      <strong>Purpose:</strong> Her main job here is to act as a text sanitizer. Based on the rules in our Modelfile, she removes any markdown (like <code>**</code>) and introductory phrases ("The text says...") and returns only the clean, core text. We then send her clean response to Piper to be spoken.
+    </li>
+  </ul>
+
+  <h4 class="text-xl font-semibold mb-4">When you click "Define":</h4>
+  <ul>
+    <li>
+      <strong>Nyla's Task:</strong> We send her a single "tricky" word (that our simple placeholder function picked) and ask her to "define it for a child."
+    </li> Hello
+    <li>
+      <strong>Purpose:</strong> She acts as an intelligent, age-appropriate dictionary, creating a simple definition from scratch.
+    </li>
+  </ul>
+
+  <h4 class="text-xl font-semibold mb-4 mt-4">When you click "Spell":</h4>
+  <ul>
+    <li>
+      <strong>Nyla's Task:</strong> We send her a single "tricky" word and ask her to "spell it."
+    </li>
+    <li>
+      <strong>Purpose:</strong> She generates a natural-sounding spelling response (e.g., "E. N. O. R. M. O. U. S. Enormous."), which is more engaging than just splitting the word with JavaScript.
+    </li>
+  </ul>
+</div>
+</section> 
+
+        <section id="tech" class="mb-12">
+            <h2 class="text-3xl font-bold mb-4">⚙️ Technical Depth & Execution</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="text-xl font-semibold">Core Philosophy: Offline-First & Privacy-Centric</h3>
+                    <p class="text-gray-700">Every technical decision was driven by the need for privacy and offline functionality. By running all AI and TTS processes locally, no user data ever leaves the device. This is essential for a COPPA-compliant children's application.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Tech Stack</h3>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>**AI Model:** Google's **Gemma 3n** (`gemma3n:e4b` base), customized with a `Modelfile` to create our persona, "Nyla."</li>
+                        <li>**AI Server:** **Ollama**, allowing us to run Gemma 3n entirely on-device.</li>
+                        <li>**Text-to-Speech:** **Piper TTS**, for its high-quality, offline-first neural voices.</li>
+                        <li>**Frontend:** Vanilla **HTML, CSS, and JavaScript**, ensuring maximum performance and no complex dependencies.</li>
+                        <li>**Styling:** **Tailwind CSS v4** (CLI), for a modern, utility-first design system.</li>
+                        <li>**Local Server:** A lightweight **Node.js/Express** server to act as a bridge between the browser and the Piper TTS command-line tool.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold">Challenges Overcome</h3>
+                    <p class="text-gray-700">The primary challenge was bridging the gap between a browser-based application and local command-line tools (`piper.exe`). We solved this by creating a minimal Node.js server. We also fine-tuned the `Modelfile` for our Gemma model ("Nyla") to prevent markdown output and keep responses on-topic and child-safe.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ollama" class="mb-12 bg-indigo-100 p-6 rounded-lg">
+            <h2 class="text-3xl font-bold mb-4 text-indigo-800">🏆 Ollama Competition Category</h2>
+            <p class="text-gray-800 leading-relaxed">**Ollama was the cornerstone of our project.** Without it, our vision for a truly private, offline-first AI application would not have been possible. Ollama made it incredibly simple to download, manage, and serve our custom `gemma3n` model locally. By creating a custom model named `nyla:latest` with a `Modelfile`, we leveraged Ollama's core features to bake in a child-ready persona and specific behavioral rules, showcasing how easily Gemma3n can be adapted for specialized, real-world tasks. This project is a direct demonstration of Ollama's power to democratize on-device AI.</p>
+        </section>
+        <section id="accessbility" class="mb-12 bg-indigo-100 p-6 rounded-lg">
+            <h2 class="text-3xl font-bold mb-4 text-indigo-800">🏆 Ollama Competition Category</h2>
+            <p class="text-gray-800 leading-relaxed">**Ollama was the cornerstone of our project.** Without it, our vision for a truly private, offline-first AI application would not have been possible. Ollama made it incredibly simple to download, manage, and serve our custom `gemma3n` model locally. By creating a custom model named `nyla:latest` with a `Modelfile`, we leveraged Ollama's core features to bake in a child-ready persona and specific behavioral rules, showcasing how easily Gemma3n can be adapted for specialized, real-world tasks. This project is a direct demonstration of Ollama's power to democratize on-device AI.</p>
+        </section>
+
+        <section id="team" class="mb-12">
+             <h2 class="text-3xl font-bold mb-4">🤝 The Team</h2>
+             <p class="text-lg text-gray-700">ReadShift was built by a passionate team from Black Women in Technology. You can learn more about the contributors on our full "About" page. <a href="about.html" class="text-indigo-600 hover:underline">Meet the team here.</a></p>
+        </section>
+
+
+        <section id="links" class="mb-12">
+            <h2 class="text-3xl font-bold mb-4">🔗 Links & Resources</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md border">
+                <ul class="list-none space-y-3">
+                    <li><strong>Video Demo Link:</strong> <a href="[Your Public Video Link Here]" class="text-indigo-600 hover:underline">[Your Public Video Link Here]</a></li>
+                    <li><strong>Public Project Link (Live Demo):</strong> <a href="[Your Publicly Accessible App Link Here]" class="text-indigo-600 hover:underline">[Your Publicly Accessible App Link Here]</a></li>
+                    <li><strong>Public Code Repository:</strong> <a href="[Your GitHub/Kaggle Repo Link Here]" class="text-indigo-600 hover:underline">[Your GitHub/Kaggle Repo Link Here]</a></li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
