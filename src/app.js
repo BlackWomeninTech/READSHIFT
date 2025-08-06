@@ -34,24 +34,95 @@ resetBtn.addEventListener('click', handleReset);
     //               CORE LOGIC FUNCTIONS
     // ===============================================
 
+
     async function handleReadAloud() {
-        let inputText = textInput.value.trim();
-        if (!inputText) {
-            alert("Please enter some text first!");
-            return;
-        }
-        updateStatus("Asking Nyla to read...");
-        const nylaResponse = await getNylaResponse(`Please read the following text aloud: "${inputText}"`);
-        if (nylaResponse) {
-            currentText = nylaResponse;
-            updateStatus("Reading aloud...");
-            await speakWithPiper(currentText);
-            updateStatus("What would you like to do next?");
-            scanSection.classList.add('hidden');
-            interactionSection.classList.remove('hidden');
-            getSpellingChallenges(currentText);
-        }
+    const inputText = textInput.value.trim();
+    if (!inputText) {
+        alert("Please enter some text first!");
+        return;
     }
+
+    // --- STEP 1: PROVIDE IMMEDIATE FEEDBACK ---
+    // Disable the button and update the status the moment the user clicks.
+    readAloudBtn.disabled = true;
+    updateStatus("Nyla is reading your text...");
+
+    // --- STEP 2: CALL THE AI ---
+    // Now, wait for Nyla to process the text.
+    const nylaResponse = await getNylaResponse(`Please read the following text aloud: "${inputText}"`);
+
+    if (nylaResponse) {
+        currentText = nylaResponse;
+
+        // --- STEP 3: PLAY THE AUDIO ---
+        // Wait for Piper to finish speaking.
+        await speakWithPiper(currentText);
+
+        // --- STEP 4: UPDATE THE UI ---
+        // Now that the main task is done, switch screens.
+        scanSection.classList.add('hidden');
+        interactionSection.classList.remove('hidden');
+        updateStatus("What would you like to do next?");
+
+        // --- STEP 5: GET CHALLENGES ---
+        // Finally, get the tricky words.
+        await getSpellingChallenges(currentText);
+
+    } else {
+        // If Nyla fails for any reason, re-enable the button so the user can try again.
+        readAloudBtn.disabled = false;
+        updateStatus("Nyla couldn't read that. Please try again.", true);
+    }
+}
+    // Option 2 Revamp Read Aloud (2)
+    async function handleReadAloud() {
+    let inputText = textInput.value.trim();
+    if (!inputText) {
+        alert("Please enter some text first!");
+        return;
+    }
+
+    updateStatus("Asking Nyla to read...");
+    const nylaResponse = await getNylaResponse(`Please read the following text aloud: "${inputText}"`);
+
+    if (nylaResponse) {
+        currentText = nylaResponse;
+        
+        // --- NEW ORDER OF OPERATIONS ---
+
+        // 1. Start the audio playback, but don't wait for it to finish yet.
+        const speakPromise = speakWithPiper(currentText, "Reading aloud...");
+
+        // 2. Immediately switch the user interface to the next screen.
+        updateStatus("What would you like to do next?");
+        scanSection.classList.add('hidden');
+        interactionSection.classList.remove('hidden');
+
+        // 3. In the background, ask Nyla to find the tricky words.
+        getSpellingChallenges(currentText);
+
+        // 4. Now, wait for the speech to complete before finishing the function.
+        await speakPromise;
+    }
+}
+    // async function handleReadAloud() {
+    //     let inputText = textInput.value.trim();
+    //     if (!inputText) {
+    //         alert("Please enter some text first!");
+    //         return;
+    //     }
+    //     updateStatus("Asking Nyla to read...");
+    //     const nylaResponse = await getNylaResponse(`Please read the following text aloud: "${inputText}"`);
+    //     if (nylaResponse) {
+    //         currentText = nylaResponse;
+    //         updateStatus("Reading aloud...");
+    //         await speakWithPiper(currentText);
+    //         updateStatus("What would you like to do next?");
+    //         scanSection.classList.add('hidden');
+    //         interactionSection.classList.remove('hidden');
+    //         await getSpellingChallenges(currentText);
+    //     }
+    // }
 
     // Repeat with Nyla
     function handleRepeat() {
@@ -160,13 +231,40 @@ async function handleSpell() {
         }
     }
 
-    async function getSpellingChallenges(text) {
-        // This is still a MOCK function. We will replace this later.
-        console.log("Identifying spelling challenges (mock)...");
-        spellingChallenges = text.split(/\s+/).filter(w => w.length > 7).map(w => w.replace(/[^a-zA-Z]/g, ''));
-        return spellingChallenges;
-    }
+    // async function getSpellingChallenges(text) {
+    //     // This is still a MOCK function. We will replace this later.
+    //     console.log("Identifying spelling challenges (mock)...");
+    //     spellingChallenges = text.split(/\s+/).filter(w => w.length > 7).map(w => w.replace(/[^a-zA-Z]/g, ''));
+    //     return spellingChallenges;
+    // }
 
+    // src/app.js
+
+async function getSpellingChallenges(text) {
+    console.log("Asking Nyla to identify spelling challenges...");
+    
+    // This prompt asks Nyla to act like an expert and return a clean JSON array
+    const prompt = `From the following text, identify up to three words that would be challenging for a 7-year-old. Respond ONLY with a JSON array of the words as strings. For example: ["challenge", "enormous"]. Text: "${text}"`;
+
+    const nylaResponse = await getNylaResponse(prompt);
+
+    if (nylaResponse) {
+        try {
+            // Attempt to parse the JSON array from Nyla's response
+            const words = JSON.parse(nylaResponse);
+            spellingChallenges = words;
+            console.log('Gemma identified:', spellingChallenges);
+            return spellingChallenges;
+        } catch (e) {
+            console.error("Could not parse JSON array from Nyla's response:", nylaResponse);
+            spellingChallenges = []; // Reset to empty if parsing fails
+            return spellingChallenges;
+        }
+    }
+    // Default to empty array if Nyla gives no response
+    spellingChallenges = [];
+    return spellingChallenges;
+}
     // ===============================================
     //               HEALTH CHECK FUNCTIONS
     // ===============================================
