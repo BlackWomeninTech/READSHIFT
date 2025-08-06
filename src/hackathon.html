@@ -32,11 +32,11 @@
         
         <section id="demo" class="mb-12">
             <h2 class="text-3xl font-bold mb-4">🎥 Video Demo</h2>
-            <p class="mb-4 text-gray-600">Our 3-minute video tells the story of how ReadShift empowers a child with dyslexia, showcasing the real-world impact and user experience.</p>
-            <div class="aspect-video bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
-                <p class="text-gray-500">[Your Embedded Video Player (iframe) Goes Here]</p>
+            <p class="mb-4 text-gray-600">Our video tells the story of how ReadShift empowers a child with dyslexia, showcasing the real-world impact and user experience.</p>
+            <div class="aspect-video bg-black-200 rounded-lg shadow-lg flex items-center justify-center">
+                <p class="bg-black"><iframe width="900" height="500" src="https://www.youtube.com/embed/y6hVFpfWHwo?si=gwERO6p0N4uitjjA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></p>
             </div>
-            <p class="text-center mt-2 text-sm">Direct Link: <a href="[Link to Your YouTube/TikTok/X Video]" class="text-indigo-600 hover:underline">[Link to Your YouTube/TikTok/X Video]</a></p>
+            <p class="text-center mt-2 text-sm">Direct Link: <a href="https://youtu.be/y6hVFpfWHwo" class="text-indigo-600 hover:underline">YouTube</a></p>
         </section>
 
         <section id="problem" class="mb-12">
@@ -51,9 +51,9 @@
             <h2 class="text-3xl font-bold mb-4">💡 Our Solution: ReadShift</h2>
             <p class="text-lg text-gray-700 leading-relaxed mb-4">ReadShift is an offline-first, privacy-focused AI application designed for children aged 6-12. When a child encounters a difficult word or sentence while reading a physical book, they can use the app to:</p>
             <ul class="list-disc list-inside space-y-2 text-lg text-gray-700">
-                <li>**Read Aloud:** The app uses its camera (or text input) to capture the text. Our custom Gemma 3n model, **"Nyla,"** processes and cleans the text, which is then spoken aloud by a clear, child-friendly voice via **Piper TTS**.</li>
-                <li>**Define:** The child can ask for the definition of a tricky word. Nyla provides a simple, age-appropriate explanation, which is then spoken aloud.</li>
-                <li>**Spell:** The child can ask for a word to be spelled out, helping them make the connection between letters and sounds in a multi-sensory way.</li>
+                <li><span  class="font-semibold text-gray-800">Read Aloud:</span> The app uses its camera (or text input) to capture the text. Our custom Gemma 3n model, <span  class="font-semibold text-gray-800">"Nyla,"</span> processes and cleans the text, which is then spoken aloud by a clear, child-friendly voice via <span  class="font-semibold text-gray-800">Piper TTS</span>.</li>
+                <li><span  class="font-semibold text-gray-800">Define:</span> The child can ask for the definition of a tricky word. Nyla provides a simple, age-appropriate explanation, which is then spoken aloud.</li>
+                <li><span  class="font-semibold text-gray-800">Spell:</span> The child can ask for a word to be spelled out, helping them make the connection between letters and sounds in a multi-sensory way.</li>
             </ul>
              <p class="text-lg text-gray-700 leading-relaxed mt-4">Throughout the experience, fun emoji animations provide positive reinforcement, making learning feel like a game.</p>
         </section>
@@ -61,7 +61,7 @@
     <h2 class="text-3xl font-bold mb-4"> Nyla</h2>
     <p class="text-lg text-gray-700 leading-relaxed">
         Meet Nyla 🤖
-Meet Nyla, the heart of the ReadShift experience. Nyla is our custom-built AI reading companion, created from Google's powerful **Gemma3n** model and brought to life using a specialized Modelfile within Ollama. We've designed her to be a patient, supportive, and friendly guide for children. When a child encounters a difficult word, Nyla can read the text aloud, provide a simple, age-appropriate definition, or spell the word out clearly. We have carefully programmed her with a child-safe persona, ensuring she never uses confusing formatting and always stays focused on the task of reading. Nyla’s purpose is not just to provide answers, but to build confidence and turn the challenge of reading into a joyful adventure.
+Meet Nyla, the heart of the ReadShift experience. Nyla is our custom-built AI reading companion, created from Google's powerful <span  class="font-semibold text-gray-800">Gemma3n</span> model and brought to life using a specialized Modelfile within Ollama. We've designed her to be a patient, supportive, and friendly guide for children. When a child encounters a difficult word, Nyla can read the text aloud, provide a simple, age-appropriate definition, or spell the word out clearly. We have carefully programmed her with a child-safe persona, ensuring she never uses confusing formatting and always stays focused on the task of reading. Nyla’s purpose is not just to provide answers, but to build confidence and turn the challenge of reading into a joyful adventure.
     </p>
   <div>
   <h2 class="text-2xl font-bold mb-4 mt-4">Nylas in Action:</h2>
@@ -108,12 +108,12 @@ Meet Nyla, the heart of the ReadShift experience. Nyla is our custom-built AI re
                 <div>
                     <h3 class="text-xl font-semibold">Tech Stack</h3>
                     <ul class="list-disc list-inside text-gray-700">
-                        <li>**AI Model:** Google's **Gemma 3n** (`gemma3n:e4b` base), customized with a `Modelfile` to create our persona, "Nyla."</li>
-                        <li>**AI Server:** **Ollama**, allowing us to run Gemma 3n entirely on-device.</li>
-                        <li>**Text-to-Speech:** **Piper TTS**, for its high-quality, offline-first neural voices.</li>
-                        <li>**Frontend:** Vanilla **HTML, CSS, and JavaScript**, ensuring maximum performance and no complex dependencies.</li>
-                        <li>**Styling:** **Tailwind CSS v4** (CLI), for a modern, utility-first design system.</li>
-                        <li>**Local Server:** A lightweight **Node.js/Express** server to act as a bridge between the browser and the Piper TTS command-line tool.</li>
+                        <li><span  class="font-semibold text-gray-800">AI Model:</span> Google's <span  class="font-semibold text-gray-800">Gemma 3n</span> (`gemma3n:e4b` base), customized with a `Modelfile` to create our persona, "Nyla."</li>
+                        <li><span  class="font-semibold text-gray-800">AI Server:</span><span  class="font-semibold text-gray-800">Ollama</span>, allowing us to run Gemma 3n entirely on-device.</li>
+                        <li><span  class="font-semibold text-gray-800">Text-to-Speech:</span> <span  class="font-semibold text-gray-800">Piper TTS</span> for its high-quality, offline-first neural voices.</li>
+                        <li><span  class="font-semibold text-gray-800">Frontend:</span> Vanilla <span  class="font-semibold text-gray-800">HTML, CSS, and JavaScript</span>, ensuring maximum performance and no complex dependencies.</li>
+                        <li><span  class="font-semibold text-gray-800">Styling:</span><span  class="font-semibold text-gray-800">Tailwind CSS v4</span> (CLI), for a modern, utility-first design system.</li>
+                        <li><span  class="font-semibold text-gray-800">Local Server:</span> A lightweight <span  class="font-semibold text-gray-800">Node.js/Express</span> server to act as a bridge between the browser and the Piper TTS command-line tool.</li>
                     </ul>
                 </div>
                 <div>
@@ -124,8 +124,12 @@ Meet Nyla, the heart of the ReadShift experience. Nyla is our custom-built AI re
         </section>
 
         <section id="ollama" class="mb-12 bg-indigo-100 p-6 rounded-lg">
-            <h2 class="text-3xl font-bold mb-4 text-indigo-800">🏆 Ollama Competition Category</h2>
-            <p class="text-gray-800 leading-relaxed">**Ollama was the cornerstone of our project.** Without it, our vision for a truly private, offline-first AI application would not have been possible. Ollama made it incredibly simple to download, manage, and serve our custom `gemma3n` model locally. By creating a custom model named `nyla:latest` with a `Modelfile`, we leveraged Ollama's core features to bake in a child-ready persona and specific behavioral rules, showcasing how easily Gemma3n can be adapted for specialized, real-world tasks. This project is a direct demonstration of Ollama's power to democratize on-device AI.</p>
+            <h2 class="text-3xl font-bold mb-4 text-indigo-800">🏆 Competing for the Overall Track (Grand Prize)</h2>
+            <p class="text-gray-800 leading-relaxed">
+            
+ReadShift was conceived as a direct answer to the Gemma 3n Impact Challenge's central question: how can a private, offline-first model make a tangible difference in people's lives? We built ReadShift not just as an application, but as a piece of assistive technology designed to empower one of the most vulnerable learning populations: children with dyslexia. Our commitment to an offline-first architecture is central to our mission. It ensures that ReadShift is a reliable tool for any child, anywhere, regardless of their internet access. This design choice directly tackles the digital divide and transforms ReadShift into a truly equitable tool for global accessibility. This isn't just a concept; it's a functional, end-to-end prototype that demonstrates the power of on-device AI to build confidence, foster independence, and change a child's relationship with reading from one of frustration to one of joy and discovery. Its also a great resource for parents, we pooled some of the best resources for parents into our community hub so that enablement happens at every level.</p>
+
+
         </section>
         <section id="accessbility" class="mb-12 bg-indigo-100 p-6 rounded-lg">
             <h2 class="text-3xl font-bold mb-4 text-indigo-800">🏆 Ollama Competition Category</h2>
@@ -142,9 +146,9 @@ Meet Nyla, the heart of the ReadShift experience. Nyla is our custom-built AI re
             <h2 class="text-3xl font-bold mb-4">🔗 Links & Resources</h2>
             <div class="bg-white p-6 rounded-lg shadow-md border">
                 <ul class="list-none space-y-3">
-                    <li><strong>Video Demo Link:</strong> <a href="[Your Public Video Link Here]" class="text-indigo-600 hover:underline">[Your Public Video Link Here]</a></li>
-                    <li><strong>Public Project Link (Live Demo):</strong> <a href="[Your Publicly Accessible App Link Here]" class="text-indigo-600 hover:underline">[Your Publicly Accessible App Link Here]</a></li>
-                    <li><strong>Public Code Repository:</strong> <a href="[Your GitHub/Kaggle Repo Link Here]" class="text-indigo-600 hover:underline">[Your GitHub/Kaggle Repo Link Here]</a></li>
+                    <li><strong>Video Demo Link:</strong> <a href="https://youtu.be/y6hVFpfWHwo" class="text-indigo-600 hover:underline">YouTube</a></li>
+                    <li><strong>Public Project Link (Live Demo):</strong> <a href="https://readshift.app" class="text-indigo-600 hover:underline">Readshift Site</a></li>
+                    <li><strong>Public Code Repository:</strong> <a href="https://github.com/BlackWomeninTech/READSHIFT" class="text-indigo-600 hover:underline">Github Repo - Branch C</a></li>
                 </ul>
             </div>
         </section>
